@@ -7,6 +7,7 @@ import { WhyChooseUs } from "@/components/why-choose-us"
 import { DemoSection } from "@/components/demo-section"
 import { FAQ } from "@/components/faq"
 import { FinalCTA } from "@/components/final-cta"
+import { CalendlyEmbed } from "@/components/calendly-embed"
 import { Footer } from "@/components/footer"
 
 export default function Home() {
@@ -21,6 +22,7 @@ export default function Home() {
       <DemoSection />
       <FAQ />
       <FinalCTA />
+      <CalendlyEmbed />
       <Footer />
     </main>
   )

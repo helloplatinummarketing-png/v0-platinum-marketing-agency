@@ -13,10 +13,12 @@ export function Hero() {
           </p>
           <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
             <a
-              href="#book-demo"
+              href="https://calendly.com/helloplatinummarketing/30min"
+              target="_blank"
+              rel="noopener noreferrer"
               className="rounded-lg bg-primary px-7 py-3.5 text-center text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-accent hover:text-accent-foreground"
             >
-              Book a Free 15-Minute Demo
+              Book a Free 30-Minute Demo
             </a>
             <a
               href="#how-it-works"
