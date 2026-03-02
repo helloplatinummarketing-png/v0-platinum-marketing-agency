@@ -10,7 +10,7 @@ export function DemoSection() {
     <section id="book-demo" className="bg-background py-24">
       <div className="mx-auto max-w-3xl px-6 text-center">
         <h2 className="font-serif text-3xl font-bold text-foreground md:text-4xl text-balance">
-          What Happens During the 15-Minute Demo?
+          What Happens During the 30-Minute Demo?
         </h2>
         <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">
           {"We'll walk you through how the systems work, review your current process, and show you where automation can immediately increase revenue."}
@@ -29,10 +29,12 @@ export function DemoSection() {
         </ul>
         <div className="mt-10">
           <a
-            href="#book-demo"
+            href="https://calendly.com/helloplatinummarketing/30min"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-block rounded-lg bg-primary px-8 py-3.5 text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-accent hover:text-accent-foreground"
           >
-            Book a Free 15-Minute Demo
+            Book a Free 30-Minute Demo
           </a>
         </div>
       </div>
