@@ -1,16 +1,21 @@
 const problems = [
   {
     headline: "Missed calls = lost revenue.",
-    detail: "If someone can't reach you, they call the next company.",
+    stat: "3+ calls missed per day",
+    detail:
+      "The average tradesperson misses 3 calls per day. If someone can't reach you, they call the next company on the list.",
   },
   {
     headline: "Slow response time kills conversions.",
-    detail: "The first business to reply usually wins the job.",
+    stat: "78% go to the first responder",
+    detail:
+      "78% of leads go to the first business that responds. Even a 10-minute delay can cost you the job.",
   },
   {
     headline: "Manual admin wastes time.",
+    stat: "15+ hours lost per week",
     detail:
-      "Chasing leads and confirming appointments shouldn't consume your day.",
+      "Chasing leads, confirming appointments and sending quotes manually can eat up 15+ hours every week that should be spent on the tools.",
   },
 ]
 
@@ -27,7 +32,10 @@ export function ProblemSection() {
               key={problem.headline}
               className="rounded-xl border border-border bg-card p-8"
             >
-              <h3 className="text-lg font-semibold text-foreground">
+              <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+                {problem.stat}
+              </p>
+              <h3 className="mt-2 text-lg font-semibold text-foreground">
                 {problem.headline}
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">

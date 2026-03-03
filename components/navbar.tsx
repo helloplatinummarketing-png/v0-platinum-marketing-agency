@@ -49,7 +49,7 @@ export function Navbar() {
             rel="noopener noreferrer"
             className="rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-accent hover:text-accent-foreground"
           >
-            Book a Free 30-Minute Demo
+            Book a Free 15-Minute Demo
           </a>
         </div>
 
@@ -98,7 +98,7 @@ export function Navbar() {
               onClick={() => setMobileOpen(false)}
               className="rounded-lg bg-primary px-5 py-2.5 text-center text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-accent hover:text-accent-foreground"
             >
-              Book a Free 30-Minute Demo
+              Book a Free 15-Minute Demo
             </a>
           </div>
         </div>

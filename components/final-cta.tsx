@@ -15,7 +15,7 @@ export function FinalCTA() {
             rel="noopener noreferrer"
             className="inline-block rounded-lg bg-primary px-10 py-4 text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-accent hover:text-accent-foreground"
           >
-            Book a Free 30-Minute Demo
+            Book a Free 15-Minute Demo
           </a>
         </div>
       </div>
