@@ -1,19 +1,8 @@
 const services = [
   {
-    title: "Lead Capture Systems",
-    description:
-      "We connect your website, forms and ads directly into a structured CRM so every enquiry is captured, tracked and followed up properly. No more lost leads slipping through the cracks.",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-primary">
-        <rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M3 9h18M9 9v12" stroke="currentColor" strokeWidth="1.5" />
-      </svg>
-    ),
-  },
-  {
     title: "Missed Call Recovery",
     description:
-      "When you miss a call, the system automatically sends a message, captures the enquiry and starts the follow-up process instantly. Turn missed calls into booked jobs.",
+      "Every missed call fires an instant automated text-back, capturing the lead before they call your competitor.",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-primary">
         <path
@@ -29,21 +18,9 @@ const services = [
     ),
   },
   {
-    title: "Appointment Automation",
+    title: "Instant Lead Response",
     description:
-      "Automated confirmations, reminders and follow-ups ensure more appointments show up and more quotes get accepted. Higher conversion rates with less manual work.",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-primary">
-        <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        <path d="M9 16l2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
-  },
-  {
-    title: "SMS & Email Follow-ups",
-    description:
-      "Automated sequences that nurture leads and re-engage cold prospects. Stay top-of-mind without lifting a finger, and bring back leads that went quiet.",
+      "Website and social enquiries get a reply within 60 seconds — day or night. The first business to respond wins the job.",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-primary">
         <path
@@ -58,27 +35,49 @@ const services = [
     ),
   },
   {
-    title: "Performance Dashboards",
+    title: "Appointment & No-Show Automation",
     description:
-      "See exactly where your leads come from, how fast they are responded to, and which campaigns are driving revenue. Real-time visibility into your growth metrics.",
+      "Automated reminders and confirmation requests mean fewer empty slots and more jobs that actually show up.",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-primary">
-        <path d="M18 20V10M12 20V4M6 20v-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        <path d="M9 16l2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
   },
   {
-    title: "24/7 Support & Coaching",
+    title: "Review Collection",
     description:
-      "You are not left alone after setup. We provide ongoing support, monthly check-ins, and strategic coaching to help you get the most out of your systems.",
+      "After every completed job, customers get a text asking for a Google review. More reviews means more inbound leads.",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-primary">
-        <path
-          d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"
-          stroke="currentColor"
-          strokeWidth="1.5"
-        />
-        <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    title: "Quote & Invoice Follow-Up",
+    description:
+      "Automated sequences chase unanswered quotes and overdue invoices so you stop writing off revenue you've already earned.",
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-primary">
+        <path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M13 2v7h7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M9 15h6M9 11h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    title: "Custom Automation Systems",
+    description:
+      "Have a specific problem or workflow in mind? We build bespoke systems tailored to exactly how your business operates.",
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-primary">
+        <circle cx="12" cy="12" r="1" fill="currentColor" />
+        <circle cx="19" cy="12" r="1" fill="currentColor" />
+        <circle cx="5" cy="12" r="1" fill="currentColor" />
+        <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
   },
@@ -89,10 +88,10 @@ export function Services() {
     <section id="services" className="bg-background py-24">
       <div className="mx-auto max-w-6xl px-6">
         <h2 className="font-serif text-3xl font-bold text-foreground md:text-4xl text-balance">
-          How We Help You Capture More Revenue
+          We Find Where Your Business Is Losing Money — Then We Fix It.
         </h2>
-        <p className="mt-4 max-w-2xl text-muted-foreground">
-          Six core systems designed specifically for home service businesses to capture, convert and retain more customers.
+        <p className="mt-4 max-w-3xl text-muted-foreground">
+          Every home service business leaks revenue differently. We diagnose your specific gaps and install the right automation — whether that's one system or ten. Here are the most common problems we solve.
         </p>
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service) => (
