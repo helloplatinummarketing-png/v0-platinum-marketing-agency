@@ -1,21 +1,27 @@
 const steps = [
   {
     number: "01",
-    title: "We analyse your current process",
+    title: "Discovery Call",
     detail:
-      "We review how enquiries are handled today and identify where revenue is leaking.",
+      "We start with a free 15-minute call to understand your business, how you currently handle leads, and where the gaps are. No sales pitch, just an honest assessment.",
   },
   {
     number: "02",
-    title: "We install the automation systems",
+    title: "Custom Setup",
     detail:
-      "We implement structured workflows around calls, forms and follow-ups.",
+      "Based on what we learn, we design and build your automation systems tailored to your specific workflow. We handle all the technical work so you do not have to.",
   },
   {
     number: "03",
-    title: "You capture more jobs automatically",
+    title: "Training & Launch",
     detail:
-      "Leads are responded to instantly and followed up consistently without manual chasing.",
+      "We walk you through the system, make sure you are comfortable, and launch everything. You will know exactly how to use it and what to expect.",
+  },
+  {
+    number: "04",
+    title: "Optimization & Growth",
+    detail:
+      "We do not just set it and forget it. We monitor performance, make improvements, and meet with you regularly to ensure you are getting results.",
   },
 ]
 
@@ -26,12 +32,18 @@ export function HowItWorks() {
         <h2 className="font-serif text-3xl font-bold text-foreground md:text-4xl">
           How It Works
         </h2>
-        <div className="mt-14 grid gap-8 md:grid-cols-3">
-          {steps.map((step) => (
+        <p className="mt-4 max-w-2xl text-muted-foreground">
+          A simple four-step process to get your automation systems live and working for you.
+        </p>
+        <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {steps.map((step, index) => (
             <div key={step.number} className="relative">
               <span className="font-serif text-5xl font-bold text-border">
                 {step.number}
               </span>
+              {index < steps.length - 1 && (
+                <div className="absolute right-0 top-6 hidden h-px w-8 bg-border lg:block" />
+              )}
               <h3 className="mt-4 text-lg font-semibold text-foreground">
                 {step.title}
               </h3>

@@ -5,24 +5,28 @@ import { useState } from "react"
 const faqs = [
   {
     question: "Is this complicated to set up?",
-    answer: "No. We handle implementation and keep it simple.",
+    answer:
+      "Not at all. We handle all the technical implementation for you. You do not need to learn any new software or spend hours configuring systems. We set everything up, test it thoroughly, and train you on the basics. Most clients are fully operational within a week, and ongoing support is included if you ever have questions.",
   },
   {
     question: "Do I need new software?",
-    answer: "We integrate with what you already use where possible.",
+    answer:
+      "We work with what you already have where possible. If you are using a CRM, scheduling tool, or any other business software, we integrate with it. If you do not have systems in place yet, we recommend and set up the right tools for your business. Either way, you will not be forced to learn complex new platforms.",
   },
   {
     question: "How quickly can this be live?",
-    answer: "Most setups are completed within days.",
+    answer:
+      "Most setups are completed within 5-7 business days. This includes the initial discovery call, system design, implementation, testing, and your training session. More complex setups with multiple integrations may take slightly longer, but we will give you a clear timeline during our first call.",
   },
   {
     question: "Is there a long-term contract?",
-    answer: "No long-term lock-ins.",
+    answer:
+      "No. We offer monthly agreements with no long-term lock-ins. We believe our value should keep you as a client, not a contract. You can cancel anytime with 30 days notice. That said, most clients stay because the systems pay for themselves many times over.",
   },
   {
     question: "Will this work for my trade?",
     answer:
-      "If you rely on phone calls and enquiries, it applies to your business.",
+      "If your business relies on phone calls, enquiries, and appointments, then yes. We have worked with roofers, plumbers, electricians, landscapers, builders, window fitters, and many other trades. The specific setup varies, but the principles of capturing leads and automating follow-ups apply across all home service businesses.",
   },
 ]
 
@@ -67,7 +71,7 @@ export function FAQ() {
                 </button>
                 <div
                   className={`overflow-hidden transition-all duration-300 ${
-                    isOpen ? "mt-3 max-h-40 opacity-100" : "max-h-0 opacity-0"
+                    isOpen ? "mt-3 max-h-96 opacity-100" : "max-h-0 opacity-0"
                   }`}
                 >
                   <p className="text-sm leading-relaxed text-muted-foreground">

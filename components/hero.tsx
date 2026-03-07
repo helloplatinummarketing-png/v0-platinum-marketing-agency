@@ -8,7 +8,7 @@ export function Hero() {
           <div className="mb-6 flex items-center gap-2">
             <span className="flex h-2 w-2 rounded-full bg-emerald-400" />
             <span className="text-sm font-medium text-muted-foreground">
-              Trusted by 50+ UK home service businesses
+              Built for UK home service businesses
             </span>
           </div>
 

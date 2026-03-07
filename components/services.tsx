@@ -1,9 +1,8 @@
 const services = [
   {
-    title: "Lead Capture & CRM Integration",
+    title: "Lead Capture Systems",
     description:
-      "We connect your website, forms and ads directly into a structured CRM so every enquiry is captured, tracked and followed up properly.",
-    outcome: "No more lost leads. Full visibility.",
+      "We connect your website, forms and ads directly into a structured CRM so every enquiry is captured, tracked and followed up properly. No more lost leads slipping through the cracks.",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-primary">
         <rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" strokeWidth="1.5" />
@@ -12,10 +11,9 @@ const services = [
     ),
   },
   {
-    title: "Missed Call Recovery System",
+    title: "Missed Call Recovery",
     description:
-      "When you miss a call, the system automatically sends a message, captures the enquiry and starts the follow-up process instantly.",
-    outcome: "Missed calls turn into booked jobs.",
+      "When you miss a call, the system automatically sends a message, captures the enquiry and starts the follow-up process instantly. Turn missed calls into booked jobs.",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-primary">
         <path
@@ -31,15 +29,56 @@ const services = [
     ),
   },
   {
-    title: "Appointment & Follow-Up Automation",
+    title: "Appointment Automation",
     description:
-      "Automated confirmations, reminders and follow-ups ensure more appointments show up and more quotes get accepted.",
-    outcome: "Higher conversion rates with less manual work.",
+      "Automated confirmations, reminders and follow-ups ensure more appointments show up and more quotes get accepted. Higher conversion rates with less manual work.",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-primary">
         <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.5" />
         <path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
         <path d="M9 16l2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    title: "SMS & Email Follow-ups",
+    description:
+      "Automated sequences that nurture leads and re-engage cold prospects. Stay top-of-mind without lifting a finger, and bring back leads that went quiet.",
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-primary">
+        <path
+          d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path d="M22 6l-10 7L2 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    title: "Performance Dashboards",
+    description:
+      "See exactly where your leads come from, how fast they are responded to, and which campaigns are driving revenue. Real-time visibility into your growth metrics.",
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-primary">
+        <path d="M18 20V10M12 20V4M6 20v-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    title: "24/7 Support & Coaching",
+    description:
+      "You are not left alone after setup. We provide ongoing support, monthly check-ins, and strategic coaching to help you get the most out of your systems.",
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-primary">
+        <path
+          d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"
+          stroke="currentColor"
+          strokeWidth="1.5"
+        />
+        <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
   },
@@ -52,7 +91,10 @@ export function Services() {
         <h2 className="font-serif text-3xl font-bold text-foreground md:text-4xl text-balance">
           How We Help You Capture More Revenue
         </h2>
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
+        <p className="mt-4 max-w-2xl text-muted-foreground">
+          Six core systems designed specifically for home service businesses to capture, convert and retain more customers.
+        </p>
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service) => (
             <div
               key={service.title}
@@ -66,9 +108,6 @@ export function Services() {
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                 {service.description}
-              </p>
-              <p className="mt-4 text-sm font-medium text-primary">
-                {service.outcome}
               </p>
             </div>
           ))}
