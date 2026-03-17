@@ -31,13 +31,11 @@
             font-size: clamp(2rem, 8vw, 3.5rem);
             line-height: 1.2;
             margin-bottom: 1rem;
-            animation: fadeInDown 0.8s ease-out;
         }
 
         h2 {
             font-size: clamp(1.75rem, 6vw, 2.5rem);
             margin-bottom: 1.5rem;
-            animation: fadeInUp 0.8s ease-out;
         }
 
         h3 {
@@ -51,22 +49,11 @@
             color: #d1d5db;
         }
 
-        /* Animations */
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
+        /* Animations - Simplified to prevent disappearing content */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -74,38 +61,8 @@
             }
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes glow {
-            0%, 100% {
-                box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
-            }
-            50% {
-                box-shadow: 0 0 30px rgba(59, 130, 246, 0.8);
-            }
-        }
-
-        .fade-in-on-scroll {
-            opacity: 0;
-            animation: fadeIn 0.8s ease-out forwards;
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out both;
         }
 
         /* Container */
@@ -118,7 +75,7 @@
         /* Navbar */
         nav {
             background-color: #0a0e27;
-            padding: 1.5rem 0;
+            padding: 1.25rem 0;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -139,767 +96,536 @@
             text-decoration: none;
         }
 
-        .nav-center {
+        .nav-links {
             display: none;
-            gap: 2rem;
+            gap: 1.5rem;
             list-style: none;
-            flex: 1;
-            justify-content: center;
+            align-items: center;
         }
 
-        .nav-center a {
+        .nav-links a {
             color: #d1d5db;
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: color 0.3s ease;
         }
 
-        .nav-center a:hover {
+        .nav-links a:hover {
             color: #ffffff;
         }
 
         .nav-right {
             display: flex;
             align-items: center;
-            gap: 1.5rem;
+            gap: 1.25rem;
         }
 
         .phone-link {
             color: #3b82f6;
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.95rem;
-            transition: color 0.3s ease;
-        }
-
-        .phone-link:hover {
-            color: #60a5fa;
+            font-size: 0.9rem;
+            white-space: nowrap;
         }
 
         .cta-button {
             background-color: #3b82f6;
             color: #ffffff;
-            padding: 0.75rem 1.5rem;
+            padding: 0.75rem 1.25rem;
             border-radius: 0.5rem;
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
             display: inline-block;
-            animation: glow 2s ease-in-out infinite;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
         }
 
         .cta-button:hover {
             background-color: #2563eb;
             transform: translateY(-2px);
-        }
-
-        .mobile-menu-toggle {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-
-        .mobile-menu-toggle span {
-            width: 1.5rem;
-            height: 0.2rem;
-            background-color: #ffffff;
-            border-radius: 0.1rem;
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
         }
 
         /* Hero Section */
         .hero {
-            padding: 4rem 0;
+            padding: 5rem 0 3rem;
             text-align: center;
-        }
-
-        .hero h1 {
-            color: #ffffff;
-            margin-bottom: 1rem;
         }
 
         .hero-subheadline {
             font-size: 1.25rem;
             color: #9ca3af;
             margin-bottom: 2rem;
-            max-width: 600px;
+            max-width: 650px;
             margin-left: auto;
             margin-right: auto;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
-        }
-
-        .hero-cta {
-            display: inline-block;
-            margin-bottom: 3rem;
-            animation: fadeInUp 0.8s ease-out 0.4s both;
         }
 
         .hero-visual {
-            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
-            border-radius: 1rem;
-            padding: 2rem 1.5rem;
-            margin-top: 2rem;
-            text-align: center;
-            border: 1px solid #374151;
-            animation: fadeInUp 0.8s ease-out 0.6s both;
+            margin-top: 3rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            background: radial-gradient(circle at center, #1e293b 0%, #0a0e27 100%);
+            padding: 1rem;
+            border-radius: 1.5rem;
+            border: 1px solid #1f2937;
         }
 
         .hero-visual img {
-            max-width: 100%;
+            width: 100%;
             height: auto;
-            border-radius: 0.75rem;
+            border-radius: 1rem;
+            display: block;
         }
 
         /* Problem Section */
         .problem-section {
-            padding: 4rem 0;
-            background-color: #111827;
-            border-top: 1px solid #1f2937;
-            border-bottom: 1px solid #1f2937;
+            padding: 5rem 0;
+            background-color: #0d112b;
         }
 
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
+            margin-top: 3rem;
         }
 
         .stat-card {
-            background-color: #1f2937;
-            padding: 2rem;
-            border-radius: 0.75rem;
+            background-color: #161b3d;
+            padding: 2.5rem 2rem;
+            border-radius: 1rem;
             text-align: center;
-            border: 1px solid #374151;
-            transition: all 0.3s ease;
-            animation: fadeIn 0.8s ease-out;
-        }
-
-        .stat-card:hover {
-            border-color: #3b82f6;
-            transform: translateY(-5px);
+            border: 1px solid #252d5a;
         }
 
         .stat-number {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: #3b82f6;
             margin-bottom: 0.5rem;
         }
 
         .stat-label {
             color: #9ca3af;
-            font-size: 0.95rem;
+            font-size: 1rem;
+            font-weight: 500;
         }
 
         /* Services Section */
         .services {
-            padding: 4rem 0;
-        }
-
-        .services h2 {
-            text-align: center;
-            margin-bottom: 3rem;
+            padding: 5rem 0;
         }
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
+            margin-top: 3rem;
         }
 
         .service-card {
-            background-color: #1f2937;
-            padding: 2rem;
-            border-radius: 0.75rem;
-            border: 1px solid #374151;
-            transition: all 0.3s ease;
-            animation: fadeIn 0.8s ease-out;
+            background-color: #161b3d;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            border: 1px solid #252d5a;
+            transition: border-color 0.3s ease;
         }
 
         .service-card:hover {
             border-color: #3b82f6;
-            transform: translateY(-5px);
         }
 
         .service-card h3 {
-            margin-bottom: 1rem;
             color: #3b82f6;
-        }
-
-        .service-card p {
-            color: #d1d5db;
-            font-size: 0.95rem;
+            margin-bottom: 1.25rem;
         }
 
         /* How It Works Section */
         .how-it-works {
-            padding: 4rem 0;
-            background-color: #111827;
-            border-top: 1px solid #1f2937;
-            border-bottom: 1px solid #1f2937;
-        }
-
-        .how-it-works h2 {
-            text-align: center;
-            margin-bottom: 3rem;
+            padding: 5rem 0;
+            background-color: #0d112b;
         }
 
         .steps-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
+            margin-top: 3rem;
         }
 
         .step {
-            background-color: #1f2937;
-            padding: 2rem;
-            border-radius: 0.75rem;
             text-align: center;
-            border: 1px solid #374151;
-            animation: fadeIn 0.8s ease-out;
+            padding: 2rem;
         }
 
         .step-number {
-            display: inline-block;
-            width: 3rem;
-            height: 3rem;
+            width: 3.5rem;
+            height: 3.5rem;
             background-color: #3b82f6;
             color: #ffffff;
             border-radius: 50%;
-            line-height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
             font-weight: 700;
-            margin-bottom: 1rem;
+            margin: 0 auto 1.5rem;
             font-family: 'Playfair Display', serif;
-        }
-
-        .step h3 {
-            margin-bottom: 0.75rem;
         }
 
         /* Pricing Section */
         .pricing {
-            padding: 4rem 0;
-        }
-
-        .pricing h2 {
-            text-align: center;
-            margin-bottom: 3rem;
+            padding: 5rem 0;
         }
 
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+            align-items: start;
         }
 
         .pricing-card {
-            background-color: #1f2937;
-            padding: 2rem;
-            border-radius: 0.75rem;
-            border: 1px solid #374151;
+            background-color: #161b3d;
+            padding: 3rem 2rem;
+            border-radius: 1.25rem;
+            border: 1px solid #252d5a;
             text-align: center;
-            transition: all 0.3s ease;
-            animation: fadeIn 0.8s ease-out;
+            position: relative;
         }
 
         .pricing-card.featured {
-            border-color: #3b82f6;
-            transform: scale(1.05);
+            border: 2px solid #3b82f6;
+            transform: scale(1.03);
+            background-color: #1a214d;
         }
 
-        .pricing-card:hover {
-            border-color: #3b82f6;
-        }
-
-        .pricing-card h3 {
-            margin-bottom: 1rem;
-        }
-
-        .pricing-header {
-            background-color: #111827;
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .setup-fee {
-            font-size: 0.9rem;
-            color: #9ca3af;
-            margin-bottom: 0.5rem;
-        }
-
-        .setup-amount {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            color: #ef4444;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-        }
-
-        .price {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+        .setup-tag {
+            background-color: #1e293b;
             color: #3b82f6;
-            margin-bottom: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            border: 1px solid #3b82f6;
+        }
+
+        .price-display {
+            margin-bottom: 2rem;
+        }
+
+        .price-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: #ffffff;
+            line-height: 1;
         }
 
         .price-period {
             color: #9ca3af;
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
         }
 
         .features-list {
             text-align: left;
-            margin: 1.5rem 0;
-            color: #d1d5db;
-            font-size: 0.95rem;
+            margin: 2rem 0;
+            list-style: none;
         }
 
         .features-list li {
-            margin-bottom: 0.75rem;
-            list-style: none;
-            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+            padding-left: 1.75rem;
             position: relative;
+            font-size: 0.95rem;
         }
 
-        .features-list li:before {
+        .features-list li::before {
             content: "✓";
             position: absolute;
             left: 0;
             color: #3b82f6;
-            font-weight: bold;
+            font-weight: 700;
         }
 
-        .tool-costs {
-            color: #9ca3af;
+        .pricing-footer {
+            margin-top: 2rem;
             font-size: 0.85rem;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid #374151;
+            color: #9ca3af;
+            border-top: 1px solid #252d5a;
+            padding-top: 1.5rem;
         }
 
         /* Founder Section */
         .founder {
-            padding: 4rem 0;
-            background-color: #111827;
-            border-top: 1px solid #1f2937;
-            border-bottom: 1px solid #1f2937;
+            padding: 5rem 0;
+            background-color: #0d112b;
         }
 
-        .founder-content {
-            max-width: 700px;
+        .founder-box {
+            max-width: 800px;
             margin: 0 auto;
+            background-color: #161b3d;
+            padding: 3rem;
+            border-radius: 1.5rem;
+            border: 1px solid #252d5a;
         }
 
-        .founder h2 {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .founder-story {
-            background-color: #1f2937;
-            padding: 2rem;
-            border-radius: 0.75rem;
-            border: 1px solid #374151;
-            margin-bottom: 2rem;
-            animation: fadeIn 0.8s ease-out;
-        }
-
-        .founder-story p {
-            margin-bottom: 1rem;
-        }
-
-        .trust-points {
+        .trust-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 1.5rem;
+            margin-top: 2.5rem;
         }
 
-        .trust-point {
-            background-color: #1f2937;
-            padding: 1.5rem;
-            border-radius: 0.75rem;
-            border-left: 3px solid #3b82f6;
+        .trust-item {
             text-align: center;
-            animation: fadeIn 0.8s ease-out;
+            padding: 1.25rem;
+            background-color: #0d112b;
+            border-radius: 0.75rem;
         }
 
-        .trust-point h4 {
-            margin-bottom: 0.5rem;
+        .trust-item h4 {
             font-size: 1rem;
-        }
-
-        .trust-point p {
-            font-size: 0.9rem;
-            color: #9ca3af;
-        }
-
-        /* Results Section */
-        .results {
-            padding: 4rem 0;
-        }
-
-        .results h2 {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .result-card {
-            background-color: #1f2937;
-            padding: 2rem;
-            border-radius: 0.75rem;
-            border: 1px solid #374151;
-            transition: all 0.3s ease;
-            animation: fadeIn 0.8s ease-out;
-        }
-
-        .result-card:hover {
-            border-color: #3b82f6;
-            transform: translateY(-5px);
-        }
-
-        .result-card h3 {
+            margin-bottom: 0.5rem;
             color: #3b82f6;
-            margin-bottom: 1rem;
         }
 
         /* FAQ Section */
         .faq {
-            padding: 4rem 0;
-            background-color: #111827;
-            border-top: 1px solid #1f2937;
-            border-bottom: 1px solid #1f2937;
-        }
-
-        .faq h2 {
-            text-align: center;
-            margin-bottom: 3rem;
+            padding: 5rem 0;
         }
 
         .faq-container {
-            max-width: 700px;
-            margin: 0 auto;
+            max-width: 800px;
+            margin: 3rem auto 0;
         }
 
         .faq-item {
-            background-color: #1f2937;
-            margin-bottom: 1rem;
+            background-color: #161b3d;
+            border: 1px solid #252d5a;
             border-radius: 0.75rem;
-            border: 1px solid #374151;
+            margin-bottom: 1rem;
             overflow: hidden;
-            animation: fadeIn 0.8s ease-out;
         }
 
-        .faq-question {
+        .faq-header {
             padding: 1.5rem;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-weight: 600;
-            color: #ffffff;
-            background-color: #1f2937;
-            transition: background-color 0.3s ease;
         }
 
-        .faq-question:hover {
-            background-color: #374151;
-        }
-
-        .faq-toggle {
-            font-size: 1.5rem;
-            color: #3b82f6;
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            background-color: #111827;
-        }
-
-        .faq-answer.active {
-            max-height: 500px;
-        }
-
-        .faq-answer p {
-            padding: 0 1.5rem 1.5rem 1.5rem;
+        .faq-content {
+            padding: 0 1.5rem 1.5rem;
+            display: none;
             color: #d1d5db;
         }
 
-        /* Final CTA Section */
-        .final-cta {
-            padding: 4rem 0;
-            text-align: center;
-        }
-
-        .final-cta h2 {
-            margin-bottom: 1.5rem;
-        }
-
-        .final-cta p {
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+        .faq-content.active {
+            display: block;
         }
 
         /* Footer */
         footer {
-            background-color: #111827;
-            padding: 3rem 0;
+            padding: 4rem 0;
+            background-color: #070a1f;
             border-top: 1px solid #1f2937;
             text-align: center;
-            color: #9ca3af;
-            font-size: 0.9rem;
         }
 
-        .footer-content {
-            margin-bottom: 1.5rem;
+        .footer-info {
+            margin-bottom: 2rem;
         }
 
-        .footer-contact {
-            margin-bottom: 1rem;
-        }
-
-        .footer-contact a {
+        .footer-info a {
             color: #3b82f6;
             text-decoration: none;
-            transition: color 0.3s ease;
         }
 
-        .footer-contact a:hover {
-            color: #60a5fa;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: #9ca3af;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: #ffffff;
-        }
-
-        /* Chatbot Widget */
-        .chatbot-widget {
+        /* Chatbot */
+        .chat-widget {
             position: fixed;
             bottom: 2rem;
             right: 2rem;
-            z-index: 999;
-            animation: slideInLeft 0.5s ease-out;
+            z-index: 2000;
         }
 
-        .chatbot-toggle {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
+        .chat-button {
+            width: 4rem;
+            height: 4rem;
             background-color: #3b82f6;
-            border: none;
-            cursor: pointer;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            color: #ffffff;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-            transition: all 0.3s ease;
-            animation: glow 2s ease-in-out infinite;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+            border: none;
+            color: white;
+            font-size: 1.75rem;
+            transition: transform 0.3s ease;
         }
 
-        .chatbot-toggle:hover {
+        .chat-button:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
         }
 
-        .chatbot-box {
+        .chat-window {
             position: absolute;
-            bottom: 80px;
+            bottom: 5rem;
             right: 0;
-            width: 320px;
-            background-color: #1f2937;
-            border: 1px solid #374151;
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            width: 350px;
+            background-color: #161b3d;
+            border: 1px solid #252d5a;
+            border-radius: 1.25rem;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             display: none;
             flex-direction: column;
-            max-height: 400px;
-            animation: fadeInUp 0.3s ease-out;
+            overflow: hidden;
         }
 
-        .chatbot-box.active {
+        .chat-window.active {
             display: flex;
         }
 
-        .chatbot-header {
+        .chat-header {
             background-color: #3b82f6;
-            color: #ffffff;
-            padding: 1rem;
-            border-radius: 0.75rem 0.75rem 0 0;
-            font-weight: 600;
+            padding: 1.25rem;
+            color: white;
+            font-weight: 700;
         }
 
-        .chatbot-content {
-            padding: 1rem;
-            flex: 1;
+        .chat-body {
+            padding: 1.5rem;
+            max-height: 300px;
             overflow-y: auto;
-            color: #d1d5db;
-            font-size: 0.9rem;
-            line-height: 1.5;
         }
 
-        .chatbot-footer {
+        .chat-msg {
+            background-color: #0d112b;
             padding: 1rem;
-            border-top: 1px solid #374151;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .chat-input-area {
+            padding: 1rem;
+            border-top: 1px solid #252d5a;
             display: flex;
             gap: 0.5rem;
         }
 
-        .chatbot-footer a {
+        .chat-input {
             flex: 1;
-            padding: 0.5rem;
+            background-color: #0d112b;
+            border: 1px solid #252d5a;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            color: white;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .chat-send {
             background-color: #3b82f6;
-            color: #ffffff;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0 1rem;
+            color: white;
+            cursor: pointer;
+        }
+
+        .chat-actions {
+            padding: 0 1rem 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chat-action-btn {
+            flex: 1;
+            padding: 0.6rem;
+            background-color: #252d5a;
+            color: white;
             text-decoration: none;
-            border-radius: 0.375rem;
+            border-radius: 0.5rem;
             text-align: center;
-            font-size: 0.85rem;
-            transition: background-color 0.3s ease;
+            font-size: 0.8rem;
+            font-weight: 600;
         }
 
-        .chatbot-footer a:hover {
-            background-color: #2563eb;
-        }
-
-        /* Responsive Design */
-        @media (min-width: 768px) {
-            .nav-center {
-                display: flex;
-            }
-
-            .mobile-menu-toggle {
-                display: none;
-            }
-
-            .pricing-card.featured {
-                transform: scale(1.08);
-            }
-        }
-
-        @media (max-width: 767px) {
-            .container {
-                padding: 0 1rem;
-            }
-
-            h1 {
-                font-size: 1.75rem;
-            }
-
-            h2 {
-                font-size: 1.5rem;
-            }
-
-            .hero {
-                padding: 2rem 0;
-            }
-
-            .pricing-card.featured {
-                transform: scale(1);
-            }
-
-            .trust-points {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-links {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .chatbot-widget {
-                bottom: 1rem;
-                right: 1rem;
-            }
-
-            .chatbot-box {
-                width: 280px;
-            }
-
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
             .nav-right {
                 gap: 0.75rem;
             }
-
             .phone-link {
                 display: none;
+            }
+            .chat-window {
+                width: calc(100vw - 2rem);
+                right: -1rem;
+            }
+            .pricing-card.featured {
+                transform: none;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .nav-links {
+                display: flex;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
+
     <nav>
-        <div class="container">
-            <div class="navbar">
-                <a href="#" class="logo">Platinum</a>
-                <ul class="nav-center">
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#how-it-works">How It Works</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
-                    <li><a href="#faq">FAQ</a></li>
-                </ul>
-                <div class="nav-right">
-                    <a href="tel:07594217753" class="phone-link">07594 217 753</a>
-                    <a href="https://cal.com/platinummarketingagency/15min" class="cta-button">Book Demo</a>
-                </div>
+        <div class="container navbar">
+            <a href="#" class="logo">Platinum</a>
+            <ul class="nav-links">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#how-it-works">Process</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+            <div class="nav-right">
+                <a href="tel:07594217753" class="phone-link">07594 217 753</a>
+                <a href="https://cal.com/platinummarketingagency/15min" class="cta-button">Book Free Demo</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero fade-in">
         <div class="container">
-            <h1>Stop Losing Leads. Start Winning Jobs.</h1>
-            <p class="hero-subheadline">Automated systems that capture every enquiry, respond instantly, and keep your business running 24/7.</p>
-            <div class="hero-cta">
-                <a href="https://cal.com/platinummarketingagency/15min" class="cta-button">Book a Free 15-Minute Demo</a>
-            </div>
+            <h1>Stop Losing Leads.<br>Start Winning Jobs.</h1>
+            <p class="hero-subheadline">Automated systems for UK tradespeople that capture every enquiry, respond instantly, and recover missed calls 24/7.</p>
+            <a href="https://cal.com/platinummarketingagency/15min" class="cta-button" style="font-size: 1.1rem; padding: 1rem 2rem;">Book a Free 15-Minute Demo</a>
+            
             <div class="hero-visual">
-                <img src="/public/hero-mockup.png" alt="Platinum Missed Call Text-Back Notification">
+                <img src="/public/hero-mockup.png" alt="Platinum Automation Mockup">
             </div>
         </div>
     </section>
 
-    <!-- Problem Section -->
     <section class="problem-section">
         <div class="container">
-            <h2 style="text-align: center;">The Real Cost of Manual Processes</h2>
+            <h2 style="text-align: center;">The Cost of Manual Admin</h2>
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-number">3+</div>
-                    <div class="stat-label">Missed calls per day</div>
+                    <div class="stat-label">Missed calls every single day</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number">78%</div>
@@ -907,364 +633,271 @@
                 </div>
                 <div class="stat-card">
                     <div class="stat-number">15+</div>
-                    <div class="stat-label">Hours lost per week on admin</div>
+                    <div class="stat-label">Hours lost per week on paperwork</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
     <section class="services" id="services">
         <div class="container">
-            <h2>What We Automate for You</h2>
+            <h2 style="text-align: center;">Done-For-You Automation</h2>
             <div class="services-grid">
                 <div class="service-card">
                     <h3>Missed Call Text-Back</h3>
-                    <p>Automatically detect missed calls and send a personalised SMS within 30 seconds. Never lose a lead because you didn't answer.</p>
+                    <p>Detects a missed call and sends a personalised SMS within 30 seconds. Keeps the lead warm while you're on the tools.</p>
                 </div>
                 <div class="service-card">
                     <h3>Instant Lead Response</h3>
-                    <p>Reply to website and social enquiries within 60 seconds with AI-personalised messages. First response wins the job.</p>
+                    <p>Replies to website and social enquiries within 60 seconds using AI. Beat your competitors to the punch every time.</p>
                 </div>
                 <div class="service-card">
                     <h3>Review Collection</h3>
-                    <p>Automatically send Google review requests 2 hours after job completion. Build your reputation automatically.</p>
+                    <p>Automatically sends a Google review request 2 hours after the job is finished. Build your reputation on autopilot.</p>
                 </div>
                 <div class="service-card">
                     <h3>Appointment Reminders</h3>
-                    <p>Send confirmation, 48-hour reminder, and 2-hour reminder automatically. Reduce no-shows and keep customers informed.</p>
+                    <p>Automated confirmation, 48hr, and 2hr reminders. Slashes no-shows and keeps your diary full.</p>
                 </div>
                 <div class="service-card">
                     <h3>No-Show Recovery</h3>
-                    <p>Send a rebook link within 30 minutes of a no-show. Turn cancellations into rescheduled jobs automatically.</p>
+                    <p>If a customer isn't there, an automated rebook link is sent within 30 minutes. Don't lose the day's profit.</p>
                 </div>
                 <div class="service-card">
                     <h3>Follow-Up Sequences</h3>
-                    <p>Automated follow-ups at key intervals — 30 days, 3 months, 6 months. Stay top-of-mind without lifting a finger.</p>
+                    <p>Automated check-ins at 30 days and 6 months. Stay top-of-mind for repeat business without lifting a finger.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- How It Works Section -->
     <section class="how-it-works" id="how-it-works">
         <div class="container">
-            <h2>How It Works</h2>
+            <h2 style="text-align: center;">3 Steps to Freedom</h2>
             <div class="steps-grid">
                 <div class="step">
                     <div class="step-number">1</div>
-                    <h3>We Connect Your Tools</h3>
-                    <p>We integrate with your phone system, website, social media, and email. Everything talks to each other automatically.</p>
+                    <h3>The Integration</h3>
+                    <p>We connect your phone, website, and social media to our automation backbone.</p>
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
-                    <h3>Automation Runs 24/7</h3>
-                    <p>Your system works while you sleep. Missed calls get responses, leads get logged, follow-ups happen automatically.</p>
+                    <h3>The Launch</h3>
+                    <p>Your custom workflows go live. Your business starts responding to leads while you sleep.</p>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
-                    <h3>You Focus on the Job</h3>
-                    <p>No more admin. No more chasing leads. You do what you do best — deliver great work. We handle the rest.</p>
+                    <h3>The Result</h3>
+                    <p>You focus on the trade. We handle the admin. You save 15+ hours every single week.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Pricing Section -->
     <section class="pricing" id="pricing">
         <div class="container">
-            <h2>Simple, Transparent Pricing</h2>
+            <h2 style="text-align: center;">Simple, Fixed Pricing</h2>
             <div class="pricing-grid">
                 <div class="pricing-card">
+                    <div class="setup-tag">£1,000 Setup Fee</div>
                     <h3>Starter</h3>
-                    <div class="pricing-header">
-                        <div class="setup-fee">Setup Fee</div>
-                        <div class="setup-amount">£1,000</div>
-                        <div class="price">£297</div>
-                        <div class="price-period">/month</div>
+                    <div class="price-display">
+                        <span class="price-value">£297</span>
+                        <span class="price-period">/month</span>
                     </div>
                     <ul class="features-list">
                         <li>Missed Call Text-Back</li>
                         <li>Instant Lead Response</li>
                         <li>Review Collection</li>
                     </ul>
-                    <a href="https://cal.com/platinummarketingagency/15min" class="cta-button">Get Started</a>
-                    <div class="tool-costs">Tool costs (~£10–20/mo) billed directly to you. No long-term contracts.</div>
+                    <a href="https://cal.com/platinummarketingagency/15min" class="cta-button" style="width: 100%;">Get Started</a>
+                    <div class="pricing-footer">
+                        Tool costs (~£10-20/mo) billed directly to you. No long-term contracts.
+                    </div>
                 </div>
+                
                 <div class="pricing-card featured">
+                    <div class="setup-tag">£1,000 Setup Fee</div>
                     <h3>Growth</h3>
-                    <div class="pricing-header">
-                        <div class="setup-fee">Setup Fee</div>
-                        <div class="setup-amount">£1,000</div>
-                        <div class="price">£397</div>
-                        <div class="price-period">/month</div>
+                    <div class="price-display">
+                        <span class="price-value">£397</span>
+                        <span class="price-period">/month</span>
                     </div>
                     <ul class="features-list">
-                        <li>Everything in Starter, plus:</li>
-                        <li>Appointment Reminder Sequence</li>
+                        <li>Everything in Starter</li>
+                        <li>Appointment Reminders</li>
                         <li>No-Show Recovery</li>
                         <li>Repeat Business Follow-Up</li>
                     </ul>
-                    <a href="https://cal.com/platinummarketingagency/15min" class="cta-button">Get Started</a>
-                    <div class="tool-costs">Tool costs (~£10–20/mo) billed directly to you. No long-term contracts.</div>
+                    <a href="https://cal.com/platinummarketingagency/15min" class="cta-button" style="width: 100%;">Get Started</a>
+                    <div class="pricing-footer">
+                        Tool costs (~£10-20/mo) billed directly to you. No long-term contracts.
+                    </div>
                 </div>
+
                 <div class="pricing-card">
+                    <div class="setup-tag">£1,000 Setup Fee</div>
                     <h3>Full System</h3>
-                    <div class="pricing-header">
-                        <div class="setup-fee">Setup Fee</div>
-                        <div class="setup-amount">£1,000</div>
-                        <div class="price">£497</div>
-                        <div class="price-period">/month</div>
+                    <div class="price-display">
+                        <span class="price-value">£497</span>
+                        <span class="price-period">/month</span>
                     </div>
                     <ul class="features-list">
-                        <li>Everything in Growth, plus:</li>
+                        <li>Everything in Growth</li>
                         <li>Quote Follow-Up Sequence</li>
                         <li>Invoice Chase Sequence</li>
                     </ul>
-                    <a href="https://cal.com/platinummarketingagency/15min" class="cta-button">Get Started</a>
-                    <div class="tool-costs">Tool costs (~£10–20/mo) billed directly to you. No long-term contracts.</div>
+                    <a href="https://cal.com/platinummarketingagency/15min" class="cta-button" style="width: 100%;">Get Started</a>
+                    <div class="pricing-footer">
+                        Tool costs (~£10-20/mo) billed directly to you. No long-term contracts.
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Founder Section -->
     <section class="founder">
         <div class="container">
-            <div class="founder-content">
-                <h2>Why Platinum</h2>
-                <div class="founder-story">
-                    <p>I'm Victor, founder of Platinum Marketing Agency. I built this system because I watched too many UK tradespeople lose jobs to poor response times and missed follow-ups. You're brilliant at your trade — you shouldn't have to be brilliant at admin too.</p>
-                    <p>Platinum automates the bits that slow you down, so you can focus on what you do best: delivering great work and growing your business. No corporate nonsense. No long-term contracts. Just results.</p>
-                </div>
-                <div class="trust-points">
-                    <div class="trust-point">
-                        <h4>UK-Based</h4>
-                        <p>Built for UK home service businesses. We understand your market.</p>
+            <div class="founder-box">
+                <h2 style="margin-bottom: 1.5rem;">Why Platinum?</h2>
+                <p>I'm Victor, founder of Platinum Marketing Agency. I watched too many UK tradespeople lose jobs because they were too busy on one site to answer the phone for the next one.</p>
+                <p>We install the "brain" in your business that handles the admin, so you can focus on the trade. No corporate jargon, just systems that work.</p>
+                
+                <div class="trust-grid">
+                    <div class="trust-item">
+                        <h4>UK Based</h4>
+                        <p>Bristol-born agency.</p>
                     </div>
-                    <div class="trust-point">
-                        <h4>No Long-Term Contracts</h4>
-                        <p>Cancel anytime. We keep you because you want us, not because you're locked in.</p>
+                    <div class="trust-item">
+                        <h4>No Contracts</h4>
+                        <p>Cancel anytime.</p>
                     </div>
-                    <div class="trust-point">
-                        <h4>Proven Workflows</h4>
-                        <p>Every automation is tested and refined. No guesswork.</p>
+                    <div class="trust-item">
+                        <h4>Done-For-You</h4>
+                        <p>We build everything.</p>
                     </div>
-                    <div class="trust-point">
-                        <h4>Direct Support</h4>
-                        <p>You get direct support from our team. Not a chatbot. Real people.</p>
+                    <div class="trust-item">
+                        <h4>Trade Focused</h4>
+                        <p>We know your world.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Results Section -->
-    <section class="results">
-        <div class="container">
-            <h2>What Automation Delivers</h2>
-            <div class="results-grid">
-                <div class="result-card">
-                    <h3>More Leads Captured</h3>
-                    <p>Respond to every enquiry instantly. No more missed opportunities. Every lead gets a response within 60 seconds, automatically.</p>
-                </div>
-                <div class="result-card">
-                    <h3>Less Time on Admin</h3>
-                    <p>Stop manually chasing quotes, sending reminders, and logging jobs. Your system does it. You save 10+ hours per week.</p>
-                </div>
-                <div class="result-card">
-                    <h3>Higher Conversion Rates</h3>
-                    <p>First responder wins the job. Automated follow-ups keep you top-of-mind. More enquiries convert to bookings.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
     <section class="faq" id="faq">
         <div class="container">
-            <h2>Frequently Asked Questions</h2>
+            <h2 style="text-align: center;">FAQs</h2>
             <div class="faq-container">
                 <div class="faq-item">
-                    <div class="faq-question">
-                        <span>How much does it cost to get started?</span>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>There's a £1,000 one-off setup fee to get your system installed and configured. Then you pay the monthly subscription (Starter £297, Growth £397, or Full System £497). On top of that, you'll pay approximately £10–20/month for the tools themselves (Twilio, API calls, etc.). No long-term contracts — cancel anytime.</p>
+                    <div class="faq-header">How much does it actually cost? <span>+</span></div>
+                    <div class="faq-content">
+                        <p>Every plan has a £1,000 one-off setup fee. This covers the build and integration. Then you pay your monthly retainer. You also pay for your own tool usage (Twilio, etc.), which is usually £10-20/month. We don't hide costs.</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">
-                        <span>How long does setup take?</span>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Setup typically takes 5–7 working days. We'll integrate with your existing tools, configure your automations, and test everything thoroughly before going live. You'll be up and running within a week.</p>
+                    <div class="faq-header">Are there long-term contracts? <span>+</span></div>
+                    <div class="faq-content">
+                        <p>No. We work on a month-to-month basis. If we aren't delivering value, you shouldn't have to pay us. Simple as that.</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">
-                        <span>What if I want to cancel?</span>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>You can cancel anytime with no penalty. We don't believe in long-term contracts. If Platinum isn't delivering value, you're free to leave. That said, most clients stay because the system works.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>Will this work for my business type?</span>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>We specialise in UK home service businesses — plumbers, electricians, roofers, landscapers, cleaners, and similar trades. If you take customer enquiries, manage appointments, and do follow-ups, Platinum works for you.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>What happens if something breaks?</span>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>You get direct support from our team. We monitor your system, fix issues quickly, and keep everything running smoothly. You're not on your own.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>Can I upgrade or downgrade later?</span>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Absolutely. Start with Starter, upgrade to Growth when you're ready. Or go straight to Full System. You can change your plan anytime, and we'll adjust your billing accordingly.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>How do you personalise the AI responses?</span>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>We use Claude API to generate personalised messages based on your business name, service type, and the specific enquiry. Every response feels like it came from you — because it's tailored to your business. No generic templates.</p>
+                    <div class="faq-header">How long does setup take? <span>+</span></div>
+                    <div class="faq-content">
+                        <p>We typically have your full system live within 7-10 working days from the moment we have access to your tools.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Final CTA Section -->
-    <section class="final-cta">
-        <div class="container">
-            <h2>Ready to Stop Losing Leads?</h2>
-            <p>Book a free 15-minute demo. We'll show you exactly how automation can transform your business — no sales pitch, just honest conversation about what's possible.</p>
-            <a href="https://cal.com/platinummarketingagency/15min" class="cta-button">Book Your Free Demo</a>
-        </div>
-    </section>
-
-    <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-content">
-                <p><strong>Platinum Marketing Agency</strong></p>
+            <div class="footer-info">
+                <p style="font-weight: 700; color: white; margin-bottom: 0.5rem;">Platinum Marketing Agency</p>
                 <p>Bristol, UK</p>
-                <div class="footer-contact">
-                    <p>Phone: <a href="tel:07594217753">07594 217 753</a></p>
-                    <p>Email: <a href="mailto:helloplatinummarketing@gmail.com">helloplatinummarketing@gmail.com</a></p>
-                </div>
+                <p><a href="tel:07594217753">07594 217 753</a> | <a href="mailto:helloplatinummarketing@gmail.com">helloplatinummarketing@gmail.com</a></p>
             </div>
-            <div class="footer-links">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-            </div>
+            <p style="font-size: 0.8rem; color: #4b5563;">&copy; 2026 Platinum Marketing Agency. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- Chatbot Widget -->
-    <div class="chatbot-widget">
-        <button class="chatbot-toggle" onclick="toggleChatbot()">💬</button>
-        <div class="chatbot-box" id="chatbot-box">
-            <div class="chatbot-header">
-                Platinum Bot
+    <div class="chat-widget">
+        <button class="chat-button" id="chat-toggle">💬</button>
+        <div class="chat-window" id="chat-window">
+            <div class="chat-header">Platinum Assistant</div>
+            <div class="chat-body" id="chat-body">
+                <div class="chat-msg">
+                    Hey! I'm Victor's assistant. Need an automation system for your plumbing, electrical, or home service business?
+                </div>
             </div>
-            <div class="chatbot-content">
-                <p>Hey! I'm Victor's assistant. Need an automation system for your plumbing, electrical, or home service business?</p>
-                <p style="margin-top: 1rem;">I can help you book a free demo or answer any questions about how Platinum works.</p>
+            <div class="chat-actions">
+                <a href="https://cal.com/platinummarketingagency/15min" class="chat-action-btn">Book Demo</a>
+                <a href="mailto:helloplatinummarketing@gmail.com" class="chat-action-btn">Email Victor</a>
             </div>
-            <div class="chatbot-footer">
-                <a href="https://cal.com/platinummarketingagency/15min">Book Demo</a>
-                <a href="mailto:helloplatinummarketing@gmail.com">Email</a>
+            <div class="chat-input-area">
+                <input type="text" class="chat-input" id="chat-input" placeholder="Type your question...">
+                <button class="chat-send" id="chat-send">Send</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Chatbot Toggle
-        function toggleChatbot() {
-            const chatbox = document.getElementById('chatbot-box');
-            chatbox.classList.toggle('active');
+        // Chatbot Logic
+        const chatToggle = document.getElementById('chat-toggle');
+        const chatWindow = document.getElementById('chat-window');
+        const chatInput = document.getElementById('chat-input');
+        const chatSend = document.getElementById('chat-send');
+        const chatBody = document.getElementById('chat-body');
+
+        chatToggle.onclick = () => chatWindow.classList.toggle('active');
+
+        function sendMessage() {
+            const text = chatInput.value.trim();
+            if (text) {
+                // Add user message
+                const userMsg = document.createElement('div');
+                userMsg.className = 'chat-msg';
+                userMsg.style.backgroundColor = '#3b82f6';
+                userMsg.style.color = 'white';
+                userMsg.style.marginLeft = '2rem';
+                userMsg.textContent = text;
+                chatBody.appendChild(userMsg);
+                
+                chatInput.value = '';
+                chatBody.scrollTop = chatBody.scrollHeight;
+
+                // Simulated response
+                setTimeout(() => {
+                    const botMsg = document.createElement('div');
+                    botMsg.className = 'chat-msg';
+                    botMsg.textContent = "Got it! I've sent your question to Victor. He'll get back to you at helloplatinummarketing@gmail.com. In the meantime, feel free to book a demo below.";
+                    chatBody.appendChild(botMsg);
+                    chatBody.scrollTop = chatBody.scrollHeight;
+                }, 1000);
+            }
         }
 
-        // Close chatbot when clicking outside
-        document.addEventListener('click', function(event) {
-            const chatbot = document.querySelector('.chatbot-widget');
-            if (!chatbot.contains(event.target)) {
-                document.getElementById('chatbot-box').classList.remove('active');
-            }
+        chatSend.onclick = sendMessage;
+        chatInput.onkeypress = (e) => { if(e.key === 'Enter') sendMessage(); };
+
+        // FAQ Logic
+        document.querySelectorAll('.faq-header').forEach(header => {
+            header.onclick = () => {
+                const content = header.nextElementSibling;
+                content.classList.toggle('active');
+                header.querySelector('span').textContent = content.classList.contains('active') ? '-' : '+';
+            };
         });
 
-        // FAQ Toggle Functionality
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', function() {
-                const answer = this.nextElementSibling;
-                const toggle = this.querySelector('.faq-toggle');
-                
-                // Close all other answers
-                document.querySelectorAll('.faq-answer').forEach(otherAnswer => {
-                    if (otherAnswer !== answer) {
-                        otherAnswer.classList.remove('active');
-                        otherAnswer.previousElementSibling.querySelector('.faq-toggle').textContent = '+';
-                    }
-                });
-                
-                // Toggle current answer
-                answer.classList.toggle('active');
-                toggle.textContent = answer.classList.contains('active') ? '−' : '+';
-            });
-        });
-
-        // Smooth Scroll for Navigation Links
+        // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (href !== '#') {
-                    e.preventDefault();
-                    const target = document.querySelector(href);
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                }
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
             });
-        });
-
-        // Scroll Animation for Cards
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in-on-scroll');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.service-card, .stat-card, .step, .result-card, .faq-item').forEach(el => {
-            observer.observe(el);
         });
     </script>
 </body>
