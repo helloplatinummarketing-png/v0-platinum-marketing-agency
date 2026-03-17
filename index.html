@@ -12,6 +12,10 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: #0a0e27;
@@ -20,7 +24,6 @@
             overflow-x: hidden;
         }
 
-        /* Typography */
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
@@ -35,7 +38,7 @@
 
         h2 {
             font-size: clamp(1.75rem, 6vw, 2.5rem);
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         h3 {
@@ -47,10 +50,60 @@
             font-size: 1rem;
             margin-bottom: 1rem;
             color: #d1d5db;
+            min-height: 1.5rem;
         }
 
-        /* Animations - Simplified to prevent disappearing content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Animations */
         @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes countUp {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(217, 119, 6, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(217, 119, 6, 0.8);
+            }
+        }
+
+        @keyframes slideInDot {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes cardSlideIn {
             from {
                 opacity: 0;
                 transform: translateY(20px);
@@ -61,15 +114,13 @@
             }
         }
 
-        .fade-in {
-            animation: fadeInUp 0.6s ease-out both;
-        }
-
-        /* Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         /* Navbar */
@@ -80,6 +131,12 @@
             top: 0;
             z-index: 1000;
             border-bottom: 1px solid #1f2937;
+            transition: backdrop-filter 0.3s ease, background-color 0.3s ease;
+        }
+
+        nav.scrolled {
+            backdrop-filter: blur(10px);
+            background-color: rgba(10, 14, 39, 0.95);
         }
 
         .navbar {
@@ -90,7 +147,7 @@
 
         .logo {
             font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 700;
             color: #ffffff;
             text-decoration: none;
@@ -98,7 +155,7 @@
 
         .nav-links {
             display: none;
-            gap: 1.5rem;
+            gap: 2rem;
             list-style: none;
             align-items: center;
         }
@@ -111,7 +168,7 @@
         }
 
         .nav-links a:hover {
-            color: #ffffff;
+            color: #d97706;
         }
 
         .nav-right {
@@ -121,7 +178,7 @@
         }
 
         .phone-link {
-            color: #3b82f6;
+            color: #d97706;
             text-decoration: none;
             font-weight: 600;
             font-size: 0.9rem;
@@ -131,7 +188,7 @@
         .cta-button {
             background-color: #3b82f6;
             color: #ffffff;
-            padding: 0.75rem 1.25rem;
+            padding: 0.75rem 1.5rem;
             border-radius: 0.5rem;
             text-decoration: none;
             font-weight: 600;
@@ -141,7 +198,6 @@
             cursor: pointer;
             display: inline-block;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
         }
 
         .cta-button:hover {
@@ -156,31 +212,92 @@
             text-align: center;
         }
 
+        .hero h1 {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
         .hero-subheadline {
             font-size: 1.25rem;
             color: #9ca3af;
             margin-bottom: 2rem;
-            max-width: 650px;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
         }
 
-        .hero-visual {
-            margin-top: 3rem;
+        .hero-cta {
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+            margin-bottom: 3rem;
+        }
+
+        /* Notification Dashboard */
+        .notification-dashboard {
             max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
-            background: radial-gradient(circle at center, #1e293b 0%, #0a0e27 100%);
-            padding: 1rem;
-            border-radius: 1.5rem;
-            border: 1px solid #1f2937;
+            margin: 3rem auto 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
         }
 
-        .hero-visual img {
-            width: 100%;
-            height: auto;
+        .notification-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid #1e40af;
             border-radius: 1rem;
-            display: block;
+            padding: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .notification-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 0.25rem;
+            animation: slideInDot 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .notification-dot.blue {
+            background-color: #3b82f6;
+            animation-delay: 0s;
+        }
+
+        .notification-dot.amber {
+            background-color: #d97706;
+            animation-delay: 0.2s;
+        }
+
+        .notification-dot.green {
+            background-color: #10b981;
+            animation-delay: 0.4s;
+        }
+
+        .notification-dot::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.25rem;
+            font-size: 0.95rem;
+        }
+
+        .notification-time {
+            font-size: 0.85rem;
+            color: #9ca3af;
         }
 
         /* Problem Section */
@@ -207,8 +324,9 @@
         .stat-number {
             font-family: 'Playfair Display', serif;
             font-size: 3rem;
-            color: #3b82f6;
+            color: #d97706;
             margin-bottom: 0.5rem;
+            font-weight: 700;
         }
 
         .stat-label {
@@ -234,11 +352,13 @@
             padding: 2.5rem;
             border-radius: 1rem;
             border: 1px solid #252d5a;
-            transition: border-color 0.3s ease;
+            transition: all 0.3s ease;
+            animation: cardSlideIn 0.6s ease-out;
         }
 
         .service-card:hover {
             border-color: #3b82f6;
+            transform: translateY(-5px);
         }
 
         .service-card h3 {
@@ -246,7 +366,7 @@
             margin-bottom: 1.25rem;
         }
 
-        /* How It Works Section */
+        /* How It Works */
         .how-it-works {
             padding: 5rem 0;
             background-color: #0d112b;
@@ -262,6 +382,7 @@
         .step {
             text-align: center;
             padding: 2rem;
+            animation: cardSlideIn 0.6s ease-out;
         }
 
         .step-number {
@@ -298,29 +419,33 @@
             border-radius: 1.25rem;
             border: 1px solid #252d5a;
             text-align: center;
-            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: scale(1.02);
         }
 
         .pricing-card.featured {
             border: 2px solid #3b82f6;
-            transform: scale(1.03);
+            transform: scale(1.05);
             background-color: #1a214d;
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.07);
         }
 
         .setup-tag {
             background-color: #1e293b;
-            color: #3b82f6;
+            color: #d97706;
             padding: 0.5rem 1rem;
             border-radius: 2rem;
             font-size: 0.85rem;
             font-weight: 700;
             display: inline-block;
             margin-bottom: 1.5rem;
-            border: 1px solid #3b82f6;
-        }
-
-        .price-display {
-            margin-bottom: 2rem;
+            border: 1px solid #d97706;
         }
 
         .price-value {
@@ -333,6 +458,7 @@
         .price-period {
             color: #9ca3af;
             font-size: 1.1rem;
+            margin-bottom: 1.5rem;
         }
 
         .features-list {
@@ -370,38 +496,104 @@
             background-color: #0d112b;
         }
 
-        .founder-box {
-            max-width: 800px;
+        .founder-content {
+            max-width: 900px;
             margin: 0 auto;
+        }
+
+        .founder-story {
             background-color: #161b3d;
             padding: 3rem;
             border-radius: 1.5rem;
             border: 1px solid #252d5a;
+            margin-bottom: 3rem;
+        }
+
+        .founder-story p {
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .founder-blockquote {
+            background-color: #0d112b;
+            border-left: 4px solid #d97706;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: #d1d5db;
         }
 
         .trust-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 1.5rem;
-            margin-top: 2.5rem;
         }
 
         .trust-item {
-            text-align: center;
-            padding: 1.25rem;
-            background-color: #0d112b;
-            border-radius: 0.75rem;
+            background-color: #161b3d;
+            padding: 1.75rem;
+            border-radius: 1rem;
+            border: 1px solid #252d5a;
+            text-align: left;
         }
 
         .trust-item h4 {
             font-size: 1rem;
-            margin-bottom: 0.5rem;
-            color: #3b82f6;
+            margin-bottom: 0.75rem;
+            color: #ffffff;
+        }
+
+        .trust-item p {
+            font-size: 0.9rem;
+            color: #9ca3af;
+        }
+
+        /* Results Section */
+        .results {
+            padding: 5rem 0;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .result-card {
+            background-color: #161b3d;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            border: 1px solid #252d5a;
+            animation: cardSlideIn 0.6s ease-out;
+        }
+
+        .result-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .result-card h3 {
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+
+        .result-badge {
+            display: inline-block;
+            background-color: #d97706;
+            color: #000000;
+            padding: 0.4rem 0.8rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-top: 1rem;
         }
 
         /* FAQ Section */
         .faq {
             padding: 5rem 0;
+            background-color: #0d112b;
         }
 
         .faq-container {
@@ -424,16 +616,29 @@
             justify-content: space-between;
             align-items: center;
             font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-header:hover {
+            background-color: #252d5a;
+        }
+
+        .faq-toggle {
+            color: #d97706;
+            font-size: 1.5rem;
         }
 
         .faq-content {
-            padding: 0 1.5rem 1.5rem;
-            display: none;
-            color: #d1d5db;
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            background-color: #0d112b;
         }
 
         .faq-content.active {
-            display: block;
+            max-height: 500px;
+            padding: 1.5rem;
         }
 
         /* Footer */
@@ -449,8 +654,32 @@
         }
 
         .footer-info a {
-            color: #3b82f6;
+            color: #d97706;
             text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-info a:hover {
+            color: #f59e0b;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #d97706;
         }
 
         /* Chatbot */
@@ -475,6 +704,7 @@
             color: white;
             font-size: 1.75rem;
             transition: transform 0.3s ease;
+            animation: bounce 0.6s ease-out 3s;
         }
 
         .chat-button:hover {
@@ -536,6 +766,7 @@
             color: white;
             font-size: 0.9rem;
             outline: none;
+            min-height: 2.5rem;
         }
 
         .chat-send {
@@ -545,6 +776,7 @@
             padding: 0 1rem;
             color: white;
             cursor: pointer;
+            font-weight: 600;
         }
 
         .chat-actions {
@@ -563,12 +795,17 @@
             text-align: center;
             font-size: 0.8rem;
             font-weight: 600;
+            transition: background-color 0.3s ease;
         }
 
-        /* Mobile Adjustments */
+        .chat-action-btn:hover {
+            background-color: #3b82f6;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .nav-right {
-                gap: 0.75rem;
+            .nav-links {
+                display: none;
             }
             .phone-link {
                 display: none;
@@ -578,7 +815,17 @@
                 right: -1rem;
             }
             .pricing-card.featured {
-                transform: none;
+                transform: scale(1);
+            }
+            p {
+                font-size: 0.95rem;
+                min-height: auto;
+            }
+            .founder-story {
+                padding: 1.5rem;
+            }
+            .trust-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -591,9 +838,9 @@
 </head>
 <body>
 
-    <nav>
+    <nav id="navbar">
         <div class="container navbar">
-            <a href="#" class="logo">Platinum</a>
+            <a href="#" class="logo">Platinum Marketing Agency</a>
             <ul class="nav-links">
                 <li><a href="#services">Services</a></li>
                 <li><a href="#how-it-works">Process</a></li>
@@ -602,19 +849,41 @@
             </ul>
             <div class="nav-right">
                 <a href="tel:07594217753" class="phone-link">07594 217 753</a>
-                <a href="https://cal.com/platinummarketingagency/15min" class="cta-button">Book Free Demo</a>
+                <a href="https://cal.com/platinummarketing/15min" class="cta-button">Book Free Demo</a>
             </div>
         </div>
     </nav>
 
-    <section class="hero fade-in">
+    <section class="hero">
         <div class="container">
-            <h1>Stop Losing Leads.<br>Start Winning Jobs.</h1>
-            <p class="hero-subheadline">Automated systems for UK tradespeople that capture every enquiry, respond instantly, and recover missed calls 24/7.</p>
-            <a href="https://cal.com/platinummarketingagency/15min" class="cta-button" style="font-size: 1.1rem; padding: 1rem 2rem;">Book a Free 15-Minute Demo</a>
+            <h1>UK's #1 Automation Agency for Trades & Home Services</h1>
+            <p class="hero-subheadline">We install automated systems that capture leads, recover missed calls, and handle your admin 24/7. Built for Plumbers, Electricians, and Roofers.</p>
+            <div class="hero-cta">
+                <a href="https://cal.com/platinummarketing/15min" class="cta-button" style="font-size: 1.1rem; padding: 1rem 2rem;">Book a Free 15-Minute Demo</a>
+            </div>
             
-            <div class="hero-visual">
-                <img src="/public/hero-mockup.png" alt="Platinum Automation Mockup">
+            <div class="notification-dashboard">
+                <div class="notification-card">
+                    <div class="notification-dot blue"></div>
+                    <div class="notification-content">
+                        <div class="notification-title">Missed Call Recovered</div>
+                        <div class="notification-time">Text sent to 07891 ••• ••• within 30 seconds</div>
+                    </div>
+                </div>
+                <div class="notification-card">
+                    <div class="notification-dot amber"></div>
+                    <div class="notification-content">
+                        <div class="notification-title">New Enquiry Replied</div>
+                        <div class="notification-time">AI response sent via SMS — 47 seconds ago</div>
+                    </div>
+                </div>
+                <div class="notification-card">
+                    <div class="notification-dot green"></div>
+                    <div class="notification-content">
+                        <div class="notification-title">Review Request Sent</div>
+                        <div class="notification-time">Google review link delivered to customer</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -624,7 +893,7 @@
             <h2 style="text-align: center;">The Cost of Manual Admin</h2>
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-number">3+</div>
+                    <div class="stat-number">3-5</div>
                     <div class="stat-label">Missed calls every single day</div>
                 </div>
                 <div class="stat-card">
@@ -673,22 +942,22 @@
 
     <section class="how-it-works" id="how-it-works">
         <div class="container">
-            <h2 style="text-align: center;">3 Steps to Freedom</h2>
+            <h2 style="text-align: center;">How It Works</h2>
             <div class="steps-grid">
                 <div class="step">
                     <div class="step-number">1</div>
-                    <h3>The Integration</h3>
-                    <p>We connect your phone, website, and social media to our automation backbone.</p>
+                    <h3>We analyse your current process</h3>
+                    <p>We review how enquiries and calls are handled today and identify exactly where revenue is leaking.</p>
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
-                    <h3>The Launch</h3>
-                    <p>Your custom workflows go live. Your business starts responding to leads while you sleep.</p>
+                    <h3>We install the automation systems</h3>
+                    <p>We build and connect your custom workflows — missed calls, lead responses, reminders, reviews, follow-ups.</p>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
-                    <h3>The Result</h3>
-                    <p>You focus on the trade. We handle the admin. You save 15+ hours every single week.</p>
+                    <h3>You capture more jobs automatically</h3>
+                    <p>Leads are responded to instantly, followed up consistently, and nothing falls through the cracks. You just focus on the trade.</p>
                 </div>
             </div>
         </div>
@@ -701,55 +970,49 @@
                 <div class="pricing-card">
                     <div class="setup-tag">£1,000 Setup Fee</div>
                     <h3>Starter</h3>
-                    <div class="price-display">
-                        <span class="price-value">£297</span>
-                        <span class="price-period">/month</span>
-                    </div>
+                    <div class="price-value">£297</div>
+                    <div class="price-period">/month</div>
                     <ul class="features-list">
                         <li>Missed Call Text-Back</li>
                         <li>Instant Lead Response</li>
                         <li>Review Collection</li>
                     </ul>
-                    <a href="https://cal.com/platinummarketingagency/15min" class="cta-button" style="width: 100%;">Get Started</a>
+                    <a href="https://cal.com/platinummarketing/15min" class="cta-button" style="width: 100%;">Get Started</a>
                     <div class="pricing-footer">
-                        Tool costs (~£10-20/mo) billed directly to you. No long-term contracts.
+                        Plus £10-20/month for tool hosting (Twilio, Claude API, etc.). No long-term contracts.
                     </div>
                 </div>
                 
                 <div class="pricing-card featured">
                     <div class="setup-tag">£1,000 Setup Fee</div>
                     <h3>Growth</h3>
-                    <div class="price-display">
-                        <span class="price-value">£397</span>
-                        <span class="price-period">/month</span>
-                    </div>
+                    <div class="price-value">£397</div>
+                    <div class="price-period">/month</div>
                     <ul class="features-list">
                         <li>Everything in Starter</li>
                         <li>Appointment Reminders</li>
                         <li>No-Show Recovery</li>
                         <li>Repeat Business Follow-Up</li>
                     </ul>
-                    <a href="https://cal.com/platinummarketingagency/15min" class="cta-button" style="width: 100%;">Get Started</a>
+                    <a href="https://cal.com/platinummarketing/15min" class="cta-button" style="width: 100%;">Get Started</a>
                     <div class="pricing-footer">
-                        Tool costs (~£10-20/mo) billed directly to you. No long-term contracts.
+                        Plus £10-20/month for tool hosting (Twilio, Claude API, etc.). No long-term contracts.
                     </div>
                 </div>
 
                 <div class="pricing-card">
                     <div class="setup-tag">£1,000 Setup Fee</div>
                     <h3>Full System</h3>
-                    <div class="price-display">
-                        <span class="price-value">£497</span>
-                        <span class="price-period">/month</span>
-                    </div>
+                    <div class="price-value">£497</div>
+                    <div class="price-period">/month</div>
                     <ul class="features-list">
                         <li>Everything in Growth</li>
                         <li>Quote Follow-Up Sequence</li>
                         <li>Invoice Chase Sequence</li>
                     </ul>
-                    <a href="https://cal.com/platinummarketingagency/15min" class="cta-button" style="width: 100%;">Get Started</a>
+                    <a href="https://cal.com/platinummarketing/15min" class="cta-button" style="width: 100%;">Get Started</a>
                     <div class="pricing-footer">
-                        Tool costs (~£10-20/mo) billed directly to you. No long-term contracts.
+                        Plus £10-20/month for tool hosting (Twilio, Claude API, etc.). No long-term contracts.
                     </div>
                 </div>
             </div>
@@ -758,28 +1021,62 @@
 
     <section class="founder">
         <div class="container">
-            <div class="founder-box">
-                <h2 style="margin-bottom: 1.5rem;">Why Platinum?</h2>
-                <p>I'm Victor, founder of Platinum Marketing Agency. I watched too many UK tradespeople lose jobs because they were too busy on one site to answer the phone for the next one.</p>
-                <p>We install the "brain" in your business that handles the admin, so you can focus on the trade. No corporate jargon, just systems that work.</p>
+            <div class="founder-content">
+                <h2 style="text-align: center; margin-bottom: 2rem;">Tradespeople do some of the hardest, most honest work there is.</h2>
                 
+                <div class="founder-story">
+                    <p>You're up early, out in all weathers, doing work that actually matters — fixing people's homes, keeping things running, showing up when others won't.</p>
+                    <p>But then you miss a call because you're under a sink. A quote goes cold because you forgot to follow up. A customer doesn't leave a review because nobody asked. Jobs you should have won — gone.</p>
+                    <p>That's what Platinum is about. Not complicated software. Not more things to manage. Just quiet systems running in the background, making sure the business side keeps up with the work you're already doing.</p>
+                    
+                    <div class="founder-blockquote">
+                        "I built Platinum because I kept seeing great tradespeople lose work not because they weren't good enough — but because the admin side was letting them down. That felt wrong to me. I wanted to fix it." — Victor, Founder of Platinum Marketing
+                    </div>
+                </div>
+
                 <div class="trust-grid">
                     <div class="trust-item">
-                        <h4>UK Based</h4>
-                        <p>Bristol-born agency.</p>
+                        <h4>We build it. We manage it.</h4>
+                        <p>You don't touch any of the tech. We set it up, test it, and keep it running. If something breaks, we fix it.</p>
                     </div>
                     <div class="trust-item">
-                        <h4>No Contracts</h4>
-                        <p>Cancel anytime.</p>
+                        <h4>No contracts. No lock-ins.</h4>
+                        <p>Stay because it works, not because you're tied in. Cancel anytime with 30 days notice.</p>
                     </div>
                     <div class="trust-item">
-                        <h4>Done-For-You</h4>
-                        <p>We build everything.</p>
+                        <h4>Live within 5 working days.</h4>
+                        <p>From first call to fully live systems in under a week.</p>
                     </div>
                     <div class="trust-item">
-                        <h4>Trade Focused</h4>
-                        <p>We know your world.</p>
+                        <h4>Built for UK home service businesses.</h4>
+                        <p>Plumbers, roofers, electricians, landscapers, cleaners — if you rely on calls and bookings, this is built for you.</p>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="results">
+        <div class="container">
+            <h2 style="text-align: center;">What Happens When the System Is Live</h2>
+            <div class="results-grid">
+                <div class="result-card">
+                    <div class="result-icon">📞</div>
+                    <h3>Missed calls stop costing you jobs</h3>
+                    <p>The average tradesperson misses 3–5 calls a day on the tools. Without a system those leads go cold in minutes. With Platinum they get a reply in 30 seconds automatically.</p>
+                    <div class="result-badge">Response in under 30 seconds</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-icon">📅</div>
+                    <h3>No-shows become rare</h3>
+                    <p>A half-day wasted on a no-show is one of the most frustrating things in the trade. Automated reminders with a confirm or reschedule option cut no-shows dramatically.</p>
+                    <div class="result-badge">Significantly fewer empty slots</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-icon">⭐</div>
+                    <h3>Reviews build up without asking</h3>
+                    <p>Happy customers rarely leave reviews unless you make it easy. A text sent 2 hours after job completion with a one-tap link changes that without you lifting a finger.</p>
+                    <div class="result-badge">More Google reviews, more inbound calls</div>
                 </div>
             </div>
         </div>
@@ -787,24 +1084,69 @@
 
     <section class="faq" id="faq">
         <div class="container">
-            <h2 style="text-align: center;">FAQs</h2>
+            <h2 style="text-align: center;">Frequently Asked Questions</h2>
             <div class="faq-container">
                 <div class="faq-item">
-                    <div class="faq-header">How much does it actually cost? <span>+</span></div>
+                    <div class="faq-header">
+                        <span>How much does it actually cost?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
                     <div class="faq-content">
                         <p>Every plan has a £1,000 one-off setup fee. This covers the build and integration. Then you pay your monthly retainer. You also pay for your own tool usage (Twilio, etc.), which is usually £10-20/month. We don't hide costs.</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-header">Are there long-term contracts? <span>+</span></div>
+                    <div class="faq-header">
+                        <span>Are there long-term contracts?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
                     <div class="faq-content">
                         <p>No. We work on a month-to-month basis. If we aren't delivering value, you shouldn't have to pay us. Simple as that.</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-header">How long does setup take? <span>+</span></div>
+                    <div class="faq-header">
+                        <span>How long does setup take?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
                     <div class="faq-content">
                         <p>We typically have your full system live within 7-10 working days from the moment we have access to your tools.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-header">
+                        <span>Do I need new software or tools?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-content">
+                        <p>We work with what you already have where possible. If you need any new tools we set them up for you and walk you through the basics. You won't be left figuring anything out on your own.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-header">
+                        <span>Will this work for my trade?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-content">
+                        <p>If your business relies on phone calls, enquiries and appointments then yes. We work with plumbers, electricians, roofers, landscapers, builders, cleaners and many other home service businesses across the UK.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-header">
+                        <span>How does the AI messaging actually work?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-content">
+                        <p>We use an AI system to write personalised messages on your behalf — using the customer's name, what job they enquired about, and your location. The messages sound like they came from you, not a robot. You approve the tone and style during setup.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-header">
+                        <span>What happens if something breaks?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-content">
+                        <p>We monitor and maintain all live workflows. If something stops working we fix it — that's included in your monthly retainer. You don't need to troubleshoot anything yourself.</p>
                     </div>
                 </div>
             </div>
@@ -818,7 +1160,11 @@
                 <p>Bristol, UK</p>
                 <p><a href="tel:07594217753">07594 217 753</a> | <a href="mailto:helloplatinummarketing@gmail.com">helloplatinummarketing@gmail.com</a></p>
             </div>
-            <p style="font-size: 0.8rem; color: #4b5563;">&copy; 2026 Platinum Marketing Agency. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+            </div>
+            <p style="font-size: 0.8rem; color: #4b5563; margin-top: 1.5rem;">&copy; 2026 Platinum Marketing Agency. All rights reserved.</p>
         </div>
     </footer>
 
@@ -832,7 +1178,7 @@
                 </div>
             </div>
             <div class="chat-actions">
-                <a href="https://cal.com/platinummarketingagency/15min" class="chat-action-btn">Book Demo</a>
+                <a href="https://cal.com/platinummarketing/15min" class="chat-action-btn">Book Demo</a>
                 <a href="mailto:helloplatinummarketing@gmail.com" class="chat-action-btn">Email Victor</a>
             </div>
             <div class="chat-input-area">
@@ -843,6 +1189,16 @@
     </div>
 
     <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
         // Chatbot Logic
         const chatToggle = document.getElementById('chat-toggle');
         const chatWindow = document.getElementById('chat-window');
@@ -855,7 +1211,6 @@
         function sendMessage() {
             const text = chatInput.value.trim();
             if (text) {
-                // Add user message
                 const userMsg = document.createElement('div');
                 userMsg.className = 'chat-msg';
                 userMsg.style.backgroundColor = '#3b82f6';
@@ -867,7 +1222,6 @@
                 chatInput.value = '';
                 chatBody.scrollTop = chatBody.scrollHeight;
 
-                // Simulated response
                 setTimeout(() => {
                     const botMsg = document.createElement('div');
                     botMsg.className = 'chat-msg';
@@ -885,19 +1239,79 @@
         document.querySelectorAll('.faq-header').forEach(header => {
             header.onclick = () => {
                 const content = header.nextElementSibling;
+                const toggle = header.querySelector('.faq-toggle');
+                
+                document.querySelectorAll('.faq-content').forEach(c => {
+                    if (c !== content) {
+                        c.classList.remove('active');
+                        c.previousElementSibling.querySelector('.faq-toggle').textContent = '+';
+                    }
+                });
+                
                 content.classList.toggle('active');
-                header.querySelector('span').textContent = content.classList.contains('active') ? '-' : '+';
+                toggle.textContent = content.classList.contains('active') ? '−' : '+';
             };
         });
 
         // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
             });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'cardSlideIn 0.6s ease-out forwards';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card, .step, .result-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Count up animation for stats
+        const statObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumber = entry.target.querySelector('.stat-number');
+                    const finalValue = parseInt(statNumber.textContent);
+                    let currentValue = 0;
+                    const increment = finalValue / 30;
+                    
+                    const counter = setInterval(() => {
+                        currentValue += increment;
+                        if (currentValue >= finalValue) {
+                            statNumber.textContent = finalValue;
+                            clearInterval(counter);
+                        } else {
+                            statNumber.textContent = Math.floor(currentValue);
+                        }
+                    }, 30);
+                    
+                    statObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-card').forEach(card => {
+            statObserver.observe(card);
         });
     </script>
 </body>
