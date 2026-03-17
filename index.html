@@ -856,7 +856,7 @@
 
     <section class="hero">
         <div class="container">
-            <h1>UK's #1 Automation Agency for Trades & Home Services</h1>
+            <h1>Automation Agency for Trades & Home Services</h1>
             <p class="hero-subheadline">We install automated systems that capture leads, recover missed calls, and handle your admin 24/7. Built for Plumbers, Electricians, and Roofers.</p>
             <div class="hero-cta">
                 <a href="https://cal.com/platinummarketing/15min" class="cta-button" style="font-size: 1.1rem; padding: 1rem 2rem;">Book a Free 15-Minute Demo</a>
@@ -897,7 +897,7 @@
                     <div class="stat-label">Missed calls every single day</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">78%</div>
+                    <div class="stat-number">78<span style="font-size: 0.6em;">%</span></div>
                     <div class="stat-label">First responder wins the job</div>
                 </div>
                 <div class="stat-card">
@@ -1178,8 +1178,7 @@
                 </div>
             </div>
             <div class="chat-actions">
-                <a href="https://cal.com/platinummarketing/15min" class="chat-action-btn">Book Demo</a>
-                <a href="mailto:helloplatinummarketing@gmail.com" class="chat-action-btn">Email Victor</a>
+                <a href="https://cal.com/platinummarketing/15min" class="chat-action-btn">Book a Demo</a>
             </div>
             <div class="chat-input-area">
                 <input type="text" class="chat-input" id="chat-input" placeholder="Type your question...">
@@ -1198,6 +1197,39 @@
                 navbar.classList.remove('scrolled');
             }
         });
+
+        // FAQ Knowledge Base
+        const faqKnowledge = {
+            'cost': 'Every plan has a £1,000 one-off setup fee. Then you pay your monthly retainer (Starter £297, Growth £397, Full System £497). You also pay for your own tool usage (Twilio, etc.), which is usually £10-20/month. We don\'t hide costs.',
+            'contract': 'No. We work on a month-to-month basis. If we aren\'t delivering value, you shouldn\'t have to pay us. Simple as that.',
+            'setup': 'We typically have your full system live within 7-10 working days from the moment we have access to your tools.',
+            'software': 'We work with what you already have where possible. If you need any new tools we set them up for you and walk you through the basics. You won\'t be left figuring anything out on your own.',
+            'trade': 'If your business relies on phone calls, enquiries and appointments then yes. We work with plumbers, electricians, roofers, landscapers, builders, cleaners and many other home service businesses across the UK.',
+            'ai': 'We use an AI system to write personalised messages on your behalf — using the customer\'s name, what job they enquired about, and your location. The messages sound like they came from you, not a robot. You approve the tone and style during setup.',
+            'breaks': 'We monitor and maintain all live workflows. If something stops working we fix it — that\'s included in your monthly retainer. You don\'t need to troubleshoot anything yourself.'
+        };
+
+        function getAnswer(question) {
+            const lowerQuestion = question.toLowerCase();
+            
+            if (lowerQuestion.includes('cost') || lowerQuestion.includes('price') || lowerQuestion.includes('£')) {
+                return faqKnowledge.cost;
+            } else if (lowerQuestion.includes('contract') || lowerQuestion.includes('lock')) {
+                return faqKnowledge.contract;
+            } else if (lowerQuestion.includes('setup') || lowerQuestion.includes('long')) {
+                return faqKnowledge.setup;
+            } else if (lowerQuestion.includes('software') || lowerQuestion.includes('tools')) {
+                return faqKnowledge.software;
+            } else if (lowerQuestion.includes('trade') || lowerQuestion.includes('work')) {
+                return faqKnowledge.trade;
+            } else if (lowerQuestion.includes('ai') || lowerQuestion.includes('message')) {
+                return faqKnowledge.ai;
+            } else if (lowerQuestion.includes('break') || lowerQuestion.includes('problem')) {
+                return faqKnowledge.breaks;
+            } else {
+                return 'Great question! For more details, I\'d recommend booking a free 15-minute demo with Victor. He can answer any specific questions about your business.';
+            }
+        }
 
         // Chatbot Logic
         const chatToggle = document.getElementById('chat-toggle');
@@ -1225,10 +1257,10 @@
                 setTimeout(() => {
                     const botMsg = document.createElement('div');
                     botMsg.className = 'chat-msg';
-                    botMsg.textContent = "Got it! I've sent your question to Victor. He'll get back to you at helloplatinummarketing@gmail.com. In the meantime, feel free to book a demo below.";
+                    botMsg.textContent = getAnswer(text);
                     chatBody.appendChild(botMsg);
                     chatBody.scrollTop = chatBody.scrollHeight;
-                }, 1000);
+                }, 800);
             }
         }
 
