@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platinum Marketing Agency - Automation for UK Home Service Businesses</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0e27;
+            color: #e5e7eb;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: clamp(1.75rem, 6vw, 2.5rem);
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-size: clamp(1.25rem, 4vw, 1.75rem);
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: #d1d5db;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Navbar */
+        nav {
+            background-color: #0a0e27;
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #1f2937;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: none;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        .cta-button {
+            background-color: #3b82f6;
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            background-color: #2563eb;
+        }
+
+        .mobile-menu-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .mobile-menu-toggle span {
+            width: 1.5rem;
+            height: 0.2rem;
+            background-color: #ffffff;
+            border-radius: 0.1rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subheadline {
+            font-size: 1.25rem;
+            color: #9ca3af;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            margin-bottom: 3rem;
+        }
+
+        .hero-visual {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            border-radius: 1rem;
+            padding: 3rem 1.5rem;
+            margin-top: 2rem;
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.95rem;
+            border: 1px solid #374151;
+        }
+
+        /* Problem Section */
+        .problem-section {
+            padding: 4rem 0;
+            background-color: #111827;
+            border-top: 1px solid #1f2937;
+            border-bottom: 1px solid #1f2937;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background-color: #1f2937;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            border: 1px solid #374151;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #3b82f6;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #9ca3af;
+            font-size: 0.95rem;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 4rem 0;
+        }
+
+        .services h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background-color: #1f2937;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border: 1px solid #374151;
+            transition: border-color 0.3s ease;
+        }
+
+        .service-card:hover {
+            border-color: #3b82f6;
+        }
+
+        .service-card h3 {
+            margin-bottom: 1rem;
+            color: #3b82f6;
+        }
+
+        .service-card p {
+            color: #d1d5db;
+            font-size: 0.95rem;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 4rem 0;
+            background-color: #111827;
+            border-top: 1px solid #1f2937;
+            border-bottom: 1px solid #1f2937;
+        }
+
+        .how-it-works h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .step {
+            background-color: #1f2937;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            border: 1px solid #374151;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 3rem;
+            height: 3rem;
+            background-color: #3b82f6;
+            color: #ffffff;
+            border-radius: 50%;
+            line-height: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .step h3 {
+            margin-bottom: 0.75rem;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 4rem 0;
+        }
+
+        .pricing h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .pricing-card {
+            background-color: #1f2937;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border: 1px solid #374151;
+            text-align: center;
+        }
+
+        .pricing-card.featured {
+            border-color: #3b82f6;
+            transform: scale(1.05);
+        }
+
+        .pricing-card h3 {
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #3b82f6;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-period {
+            color: #9ca3af;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .features-list {
+            text-align: left;
+            margin: 1.5rem 0;
+            color: #d1d5db;
+            font-size: 0.95rem;
+        }
+
+        .features-list li {
+            margin-bottom: 0.75rem;
+            list-style: none;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .features-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #3b82f6;
+            font-weight: bold;
+        }
+
+        .setup-fee {
+            color: #9ca3af;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #374151;
+        }
+
+        /* Founder Section */
+        .founder {
+            padding: 4rem 0;
+            background-color: #111827;
+            border-top: 1px solid #1f2937;
+            border-bottom: 1px solid #1f2937;
+        }
+
+        .founder-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .founder h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .founder-story {
+            background-color: #1f2937;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border: 1px solid #374151;
+            margin-bottom: 2rem;
+        }
+
+        .founder-story p {
+            margin-bottom: 1rem;
+        }
+
+        .trust-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .trust-point {
+            background-color: #1f2937;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border-left: 3px solid #3b82f6;
+            text-align: center;
+        }
+
+        .trust-point h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .trust-point p {
+            font-size: 0.9rem;
+            color: #9ca3af;
+        }
+
+        /* Results Section */
+        .results {
+            padding: 4rem 0;
+        }
+
+        .results h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .result-card {
+            background-color: #1f2937;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border: 1px solid #374151;
+        }
+
+        .result-card h3 {
+            color: #3b82f6;
+            margin-bottom: 1rem;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 4rem 0;
+            background-color: #111827;
+            border-top: 1px solid #1f2937;
+            border-bottom: 1px solid #1f2937;
+        }
+
+        .faq h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .faq-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background-color: #1f2937;
+            margin-bottom: 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid #374151;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #ffffff;
+            background-color: #1f2937;
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background-color: #374151;
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            color: #3b82f6;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: #111827;
+        }
+
+        .faq-answer.active {
+            max-height: 500px;
+        }
+
+        .faq-answer p {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+            color: #d1d5db;
+        }
+
+        /* Final CTA Section */
+        .final-cta {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .final-cta p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #111827;
+            padding: 3rem 0;
+            border-top: 1px solid #1f2937;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        .footer-content {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #ffffff;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+
+            .mobile-menu-toggle {
+                display: none;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1.08);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .hero {
+                padding: 2rem 0;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .trust-points {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        <div class="container">
+            <div class="navbar">
+                <a href="#" class="logo">Platinum</a>
+                <ul class="nav-links">
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+                <a href="https://cal.com/platinummarketingagency/15min" class="cta-button">Book Demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Stop Losing Leads. Start Winning Jobs.</h1>
+            <p class="hero-subheadline">Automated systems that capture every enquiry, respond instantly, and keep your business running 24/7.</p>
+            <div class="hero-cta">
+                <a href="https://cal.com/platinummarketingagency/15min" class="cta-button">Book a Free 15-Minute Demo</a>
+            </div>
+            <div class="hero-visual">
+                <p>Your automation system in action — capturing leads, sending responses, and managing follow-ups automatically.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem-section">
+        <div class="container">
+            <h2 style="text-align: center;">The Real Cost of Manual Processes</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">3+</div>
+                    <div class="stat-label">Missed calls per day</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">78%</div>
+                    <div class="stat-label">First responder wins the job</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Hours lost per week on admin</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2>What We Automate for You</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Missed Call Text-Back</h3>
+                    <p>Automatically detect missed calls and send a personalised SMS within 30 seconds. Never lose a lead because you didn't answer.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Instant Lead Response</h3>
+                    <p>Reply to website and social enquiries within 60 seconds with AI-personalised messages. First response wins the job.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Review Collection</h3>
+                    <p>Automatically send Google review requests 2 hours after job completion. Build your reputation automatically.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Appointment Reminders</h3>
+                    <p>Send confirmation, 48-hour reminder, and 2-hour reminder automatically. Reduce no-shows and keep customers informed.</p>
+                </div>
+                <div class="service-card">
+                    <h3>No-Show Recovery</h3>
+                    <p>Send a rebook link within 30 minutes of a no-show. Turn cancellations into rescheduled jobs automatically.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Follow-Up Sequences</h3>
+                    <p>Automated follow-ups at key intervals — 30 days, 3 months, 6 months. Stay top-of-mind without lifting a finger.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2>How It Works</h2>
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>We Connect Your Tools</h3>
+                    <p>We integrate with your phone system, website, social media, and email. Everything talks to each other automatically.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Automation Runs 24/7</h3>
+                    <p>Your system works while you sleep. Missed calls get responses, leads get logged, follow-ups happen automatically.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>You Focus on the Job</h3>
+                    <p>No more admin. No more chasing leads. You do what you do best — deliver great work. We handle the rest.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2>Simple, Transparent Pricing</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Starter</h3>
+                    <div class="price">£297</div>
+                    <div class="price-period">/month</div>
+                    <ul class="features-list">
+                        <li>Missed Call Text-Back</li>
+                        <li>Instant Lead Response</li>
+                        <li>Review Collection</li>
+                    </ul>
+                    <a href="https://cal.com/platinummarketingagency/15min" class="cta-button">Get Started</a>
+                    <div class="setup-fee">£1,000 one-off setup fee + ~£10–20/month tool costs. No long-term contracts.</div>
+                </div>
+                <div class="pricing-card featured">
+                    <h3>Growth</h3>
+                    <div class="price">£397</div>
+                    <div class="price-period">/month</div>
+                    <ul class="features-list">
+                        <li>Everything in Starter, plus:</li>
+                        <li>Appointment Reminder Sequence</li>
+                        <li>No-Show Recovery</li>
+                        <li>Repeat Business Follow-Up</li>
+                    </ul>
+                    <a href="https://cal.com/platinummarketingagency/15min" class="cta-button">Get Started</a>
+                    <div class="setup-fee">£1,000 one-off setup fee + ~£10–20/month tool costs. No long-term contracts.</div>
+                </div>
+                <div class="pricing-card">
+                    <h3>Full System</h3>
+                    <div class="price">£497</div>
+                    <div class="price-period">/month</div>
+                    <ul class="features-list">
+                        <li>Everything in Growth, plus:</li>
+                        <li>Quote Follow-Up Sequence</li>
+                        <li>Invoice Chase Sequence</li>
+                    </ul>
+                    <a href="https://cal.com/platinummarketingagency/15min" class="cta-button">Get Started</a>
+                    <div class="setup-fee">£1,000 one-off setup fee + ~£10–20/month tool costs. No long-term contracts.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder Section -->
+    <section class="founder">
+        <div class="container">
+            <div class="founder-content">
+                <h2>Why Platinum</h2>
+                <div class="founder-story">
+                    <p>I'm Victor, founder of Platinum Marketing Agency. I built this system because I watched too many UK tradespeople lose jobs to poor response times and missed follow-ups. You're brilliant at your trade — you shouldn't have to be brilliant at admin too.</p>
+                    <p>Platinum automates the bits that slow you down, so you can focus on what you do best: delivering great work and growing your business.</p>
+                </div>
+                <div class="trust-points">
+                    <div class="trust-point">
+                        <h4>UK-Based</h4>
+                        <p>Built for UK home service businesses. We understand your market.</p>
+                    </div>
+                    <div class="trust-point">
+                        <h4>No Long-Term Contracts</h4>
+                        <p>Cancel anytime. We keep you because you want us, not because you're locked in.</p>
+                    </div>
+                    <div class="trust-point">
+                        <h4>Proven Workflows</h4>
+                        <p>Every automation is tested and refined. No guesswork.</p>
+                    </div>
+                    <div class="trust-point">
+                        <h4>Hands-On Support</h4>
+                        <p>You get direct support from our team. Not a chatbot. Real people.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="results">
+        <div class="container">
+            <h2>What Automation Delivers</h2>
+            <div class="results-grid">
+                <div class="result-card">
+                    <h3>More Leads Captured</h3>
+                    <p>Respond to every enquiry instantly. No more missed opportunities. Every lead gets a response within 60 seconds.</p>
+                </div>
+                <div class="result-card">
+                    <h3>Less Time on Admin</h3>
+                    <p>Stop manually chasing quotes, sending reminders, and logging jobs. Your system does it. You save 10+ hours per week.</p>
+                </div>
+                <div class="result-card">
+                    <h3>Higher Conversion Rates</h3>
+                    <p>First responder wins the job. Automated follow-ups keep you top-of-mind. More enquiries convert to bookings.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How much does it cost to get started?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>There's a £1,000 one-off setup fee to get your system installed and configured. Then you pay the monthly subscription (Starter £297, Growth £397, or Full System £497). On top of that, you'll pay approximately £10–20/month for the tools themselves (Twilio, API calls, etc.). No long-term contracts — cancel anytime.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How long does setup take?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Setup typically takes 5–7 working days. We'll integrate with your existing tools, configure your automations, and test everything thoroughly before going live. You'll be up and running within a week.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What if I want to cancel?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>You can cancel anytime with no penalty. We don't believe in long-term contracts. If Platinum isn't delivering value, you're free to leave. That said, most clients stay because the system works.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Will this work for my business type?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We specialise in UK home service businesses — plumbers, electricians, roofers, landscapers, cleaners, and similar trades. If you take customer enquiries, manage appointments, and do follow-ups, Platinum works for you.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What happens if something breaks?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>You get direct support from our team. We monitor your system, fix issues quickly, and keep everything running smoothly. You're not on your own.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I upgrade or downgrade later?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely. Start with Starter, upgrade to Growth when you're ready. Or go straight to Full System. You can change your plan anytime, and we'll adjust your billing accordingly.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How do you personalise the AI responses?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We use Claude API to generate personalised messages based on your business name, service type, and the specific enquiry. Every response feels like it came from you — because it's tailored to your business. No generic templates.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>Ready to Stop Losing Leads?</h2>
+            <p>Book a free 15-minute demo. We'll show you exactly how automation can transform your business — no sales pitch, just honest conversation about what's possible.</p>
+            <a href="https://cal.com/platinummarketingagency/15min" class="cta-button">Book Your Free Demo</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p><strong>Platinum Marketing Agency</strong></p>
+                <p>Bristol, UK</p>
+                <p>Email: <a href="mailto:hello@platinummarketing.co.uk">hello@platinummarketing.co.uk</a></p>
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Toggle Functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const toggle = this.querySelector('.faq-toggle');
+                
+                // Close all other answers
+                document.querySelectorAll('.faq-answer').forEach(otherAnswer => {
+                    if (otherAnswer !== answer) {
+                        otherAnswer.classList.remove('active');
+                        otherAnswer.previousElementSibling.querySelector('.faq-toggle').textContent = '+';
+                    }
+                });
+                
+                // Toggle current answer
+                answer.classList.toggle('active');
+                toggle.textContent = answer.classList.contains('active') ? '−' : '+';
+            });
+        });
+
+        // Smooth Scroll for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
