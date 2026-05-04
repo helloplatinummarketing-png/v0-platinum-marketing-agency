@@ -1,57 +1,76 @@
-"use client";
+'use client';
 
-import { motion, useInView, AnimatePresence } from "framer-motion";
-import { useRef, useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { useState, useRef } from 'react';
+import { ChevronDown } from 'lucide-react';
 
 const faqs = [
   {
-    q: "How quickly can you come out?",
-    a: "For emergencies we aim to be with you within the hour across Bristol. For non-urgent work, we typically have slots within 24–48 hours. Book online and we'll confirm your exact time within 15 minutes.",
+    q: 'How quickly will my website be live?',
+    a: 'Most websites are live within 5 working days of receiving your content and approval.',
   },
   {
-    q: "Do you give a fixed price before starting?",
-    a: "Always. We give you a clear, written quote before any work starts. No surprises, no extras added on. The price we quote is the price you pay.",
+    q: 'Do I need to sign a long-term contract?',
+    a: 'No. Everything is month to month. Cancel anytime with 30 days notice.',
   },
   {
-    q: "Are you Gas Safe registered?",
-    a: "Yes. James is fully Gas Safe registered and has been for over 10 years. You can check our registration number on the official Gas Safe Register website.",
+    q: 'What do I need to provide?',
+    a: 'Just your logo, photos if you have them, and your list of services. We handle everything else.',
   },
   {
-    q: "Do you work on weekends?",
-    a: "We offer Saturday appointments for non-emergency jobs. Emergency call-outs are available 7 days a week, including bank holidays.",
+    q: 'Will my website show up on Google?',
+    a: 'Yes. Every website we build includes local SEO setup targeting your trade and city specifically.',
   },
   {
-    q: "What areas do you cover?",
-    a: "We cover all areas of Bristol including Clifton, Bedminster, Redland, Bishopston, Horfield, Filton, Keynsham, and surrounding areas within roughly 15 miles.",
+    q: 'What happens if something breaks?',
+    a: 'We monitor everything. If something breaks we fix it — included in your monthly fee.',
   },
   {
-    q: "Is your work guaranteed?",
-    a: "Yes. All work comes with a 12-month labour guarantee. Parts are covered by the manufacturer's warranty. If anything goes wrong, we come back and sort it — no arguments.",
+    q: 'Can I see examples of your work?',
+    a: 'Yes — visit bristol-spark-electrical.vercel.app to see a live demo we built for a Bristol electrician.',
+  },
+  {
+    q: 'How does the automation actually work?',
+    a: 'When someone contacts you — by phone, website, or social — our system responds automatically within 30–60 seconds with a personalised message. You get notified instantly so you can follow up personally.',
+  },
+  {
+    q: 'Do you work with businesses outside Bristol?',
+    a: 'We started in Bristol but work with trades businesses across the UK. Get in touch and we will let you know if we can help.',
   },
 ];
 
-function FAQItem({ q, a, index, inView }: { q: string; a: string; index: number; inView: boolean }) {
+function FAQItem({
+  q, a, index, inView,
+}: {
+  q: string; a: string; index: number; inView: boolean;
+}) {
   const [open, setOpen] = useState(false);
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.4, delay: index * 0.08 }}
-      className="border border-[#C9A84C]/15 rounded-xl overflow-hidden"
+      transition={{ duration: 0.4, delay: index * 0.07 }}
+      className="rounded-xl overflow-hidden"
+      style={{ border: '1px solid #1e1e42' }}
     >
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-6 py-5 text-left bg-[#0F2040] hover:bg-[#142540] transition-colors gap-4"
+        className="w-full flex items-center justify-between px-6 py-5 text-left transition-colors gap-4"
+        style={{ background: open ? '#11112e' : '#0d0d24' }}
       >
-        <span className="text-white font-medium text-sm sm:text-base">{q}</span>
+        <span
+          className="font-medium text-sm md:text-base"
+          style={{ color: '#e8e8f0', fontFamily: 'var(--font-body)' }}
+        >
+          {q}
+        </span>
         <motion.div
           animate={{ rotate: open ? 180 : 0 }}
           transition={{ duration: 0.2 }}
           className="shrink-0"
         >
-          <ChevronDown className="w-5 h-5 text-[#C9A84C]" />
+          <ChevronDown size={18} style={{ color: '#d4af37' }} />
         </motion.div>
       </button>
 
@@ -59,11 +78,19 @@ function FAQItem({ q, a, index, inView }: { q: string; a: string; index: number;
         {open && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
+            animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
+            transition={{ duration: 0.25, ease: 'easeInOut' }}
           >
-            <div className="px-6 pb-5 pt-3 bg-[#0F2040]/50 text-gray-400 text-sm leading-relaxed border-t border-[#C9A84C]/10">
+            <div
+              className="px-6 pb-5 pt-3 text-sm leading-relaxed"
+              style={{
+                borderTop: '1px solid #1e1e42',
+                color: '#6b6b8a',
+                fontFamily: 'var(--font-body)',
+                background: '#11112e',
+              }}
+            >
               {a}
             </div>
           </motion.div>
@@ -75,33 +102,29 @@ function FAQItem({ q, a, index, inView }: { q: string; a: string; index: number;
 
 export default function FAQ() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section id="faq" ref={ref} className="py-20 bg-[#0F2040]">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6">
-        {/* Header */}
+    <section id="faq" ref={ref} className="section-pad" style={{ background: '#0d0d24' }}>
+      <div className="max-w-3xl mx-auto px-5">
+        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <p className="text-[#C9A84C] text-sm font-semibold uppercase tracking-widest mb-3">
-            Got questions?
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Frequently asked questions
+          <h2
+            className="text-4xl md:text-5xl font-bold"
+            style={{ fontFamily: 'var(--font-heading)', color: '#e8e8f0' }}
+          >
+            Common <span style={{ color: '#d4af37' }}>Questions</span>
           </h2>
-          <p className="text-gray-400 text-lg">
-            Can&apos;t find your answer here? Call us on 0117 900 1234.
-          </p>
         </motion.div>
 
-        {/* Items */}
         <div className="flex flex-col gap-3">
           {faqs.map((faq, i) => (
-            <FAQItem key={faq.q} q={faq.q} a={faq.a} index={i} inView={inView} />
+            <FAQItem key={i} q={faq.q} a={faq.a} index={i} inView={inView} />
           ))}
         </div>
       </div>

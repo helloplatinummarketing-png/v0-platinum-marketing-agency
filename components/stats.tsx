@@ -1,31 +1,22 @@
-"use client";
+'use client';
 
-import {
-  motion,
-  useInView,
-  useMotionValue,
-  useSpring,
-  useTransform,
-} from "framer-motion";
-import { useEffect, useRef } from "react";
+import { motion, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { useEffect, useRef } from 'react';
 
-/* ── Animated counting number ── */
-function AnimatedNumber({
+function MorphingNumber({
   target,
-  suffix = "",
-  prefix = "",
+  prefix = '',
+  suffix = '',
 }: {
   target: number;
-  suffix?: string;
   prefix?: string;
+  suffix?: string;
 }) {
   const spanRef = useRef<HTMLSpanElement>(null);
-  const inView = useInView(spanRef, { once: true });
+  const inView = useInView(spanRef, { once: true, margin: '-80px' });
   const raw = useMotionValue(0);
-  const spring = useSpring(raw, { damping: 28, stiffness: 70 });
-  const display = useTransform(spring, (v) =>
-    `${prefix}${Math.round(v)}${suffix}`
-  );
+  const spring = useSpring(raw, { damping: 20, stiffness: 50 });
+  const display = useTransform(spring, (v) => `${prefix}${Math.round(v).toLocaleString()}${suffix}`);
 
   useEffect(() => {
     if (inView) raw.set(target);
@@ -36,60 +27,76 @@ function AnimatedNumber({
 
 const stats = [
   {
-    value: 350,
-    prefix: "£",
-    suffix: "",
-    label: "Average job value",
-    sub: "Transparent fixed pricing",
+    value: 91,
+    prefix: '',
+    suffix: '%',
+    label: 'of customers search online before calling a tradesperson',
   },
   {
-    value: 12,
-    prefix: "",
-    suffix: "+",
-    label: "Five-star Google reviews",
-    sub: "Verified ratings",
+    value: 78,
+    prefix: '',
+    suffix: '%',
+    label: 'of jobs go to whoever responds first',
   },
   {
-    value: 98,
-    prefix: "",
-    suffix: "%",
-    label: "First-visit fix rate",
-    sub: "We come fully equipped",
+    value: 2400,
+    prefix: '£',
+    suffix: '',
+    label: 'lost every month from missed calls and cold quotes',
   },
 ];
 
 export default function Stats() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-
   return (
-    <section ref={ref} className="py-20 bg-[#0F2040]">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+    <section className="section-pad" style={{ background: '#0d0d24' }}>
+      <div className="max-w-6xl mx-auto px-5">
+        {/* Heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-14"
+        >
+          <h2
+            className="text-4xl md:text-5xl font-bold mb-5 leading-tight"
+            style={{ fontFamily: 'var(--font-heading)', color: '#e8e8f0' }}
+          >
+            Most Trades Businesses Are{' '}
+            <span style={{ color: '#d4af37' }}>Invisible Online.</span>
+            <br />
+            Here&apos;s What That Costs.
+          </h2>
+        </motion.div>
+
+        {/* Stat cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {stats.map((stat, i) => (
             <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 36 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.55, delay: i * 0.18 }}
-              whileHover={{
-                y: -8,
-                boxShadow: "0 20px 50px rgba(201,168,76,0.25)",
-                transition: { duration: 0.25 },
-              }}
-              className="animate-border-glow text-center px-6 py-10 rounded-2xl bg-[#0B1829] border border-[#C9A84C]/20 cursor-default"
+              key={i}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.55, delay: i * 0.15 }}
+              className="platinum-card p-8"
+              style={{ borderLeft: '4px solid #d4af37' }}
             >
-              <div className="text-5xl sm:text-6xl font-bold text-[#C9A84C] mb-3">
-                <AnimatedNumber
+              <div
+                className="counter-number text-6xl md:text-7xl mb-4"
+                style={{ color: '#d4af37' }}
+              >
+                <MorphingNumber
                   target={stat.value}
                   prefix={stat.prefix}
                   suffix={stat.suffix}
                 />
               </div>
-              <div className="text-white font-semibold text-lg mb-1.5">
+              <p
+                className="text-base leading-snug"
+                style={{ color: '#6b6b8a', fontFamily: 'var(--font-body)' }}
+              >
                 {stat.label}
-              </div>
-              <div className="text-gray-400 text-sm">{stat.sub}</div>
+              </p>
             </motion.div>
           ))}
         </div>
