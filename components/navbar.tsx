@@ -1,138 +1,166 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
-import { Menu, X } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
 
-const links = [
-  { label: 'Work', href: '#work' },
-  { label: 'Services', href: '#services' },
-  { label: 'Pricing', href: '#pricing' },
-  { label: 'FAQ', href: '#faq' },
-  { label: 'Contact', href: '#contact' },
+const navLinks = [
+  { label: "WORK", href: "#work" },
+  { label: "SERVICES", href: "#services" },
+  { label: "PRICING", href: "#pricing" },
+  { label: "FAQ", href: "#faq" },
 ];
-
-const BOOKING = 'https://cal.com/platinummarketingagency/15min';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const shouldReduce = useReducedMotion();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    const onScroll = () => setScrolled(window.scrollY > 80);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [menuOpen]);
+
+  const handleNavClick = (href: string) => {
+    setMenuOpen(false);
+    setTimeout(() => {
+      const el = document.querySelector(href);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }, 50);
+  };
 
   return (
     <>
-      <motion.header
-        initial={{ y: -80, opacity: 0 }}
+      <motion.nav
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+        style={{
+          backdropFilter: scrolled ? "blur(24px)" : "none",
+          WebkitBackdropFilter: scrolled ? "blur(24px)" : "none",
+          background: scrolled ? "rgba(2,6,23,0.92)" : "transparent",
+          borderBottom: scrolled
+            ? "1px solid rgba(212,175,55,0.12)"
+            : "1px solid transparent",
+        }}
+        initial={shouldReduce ? {} : { y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
-        className="fixed top-3 left-0 right-0 z-50 px-4"
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div
-          className="max-w-6xl mx-auto px-5 h-[64px] flex items-center justify-between rounded-xl transition-all duration-300"
-          style={{
-            background: scrolled ? 'rgba(7,7,26,0.95)' : 'rgba(7,7,26,0.6)',
-            backdropFilter: 'blur(16px)',
-            borderBottom: scrolled ? '1px solid #d4af37' : '1px solid rgba(30,30,66,0.6)',
-            boxShadow: scrolled ? '0 4px 30px rgba(0,0,0,0.4)' : 'none',
-          }}
-        >
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 h-[72px] flex items-center justify-between">
           {/* Logo */}
-          <a href="/" className="flex items-center">
+          <Link href="/" className="flex items-center flex-shrink-0">
             <Image
               src="/platinum-logo.png"
               alt="Platinum Marketing Agency"
-              width={135}
-              height={45}
-              style={{ height: 45, width: 'auto' }}
+              width={120}
+              height={40}
+              style={{ height: "40px", width: "auto" }}
               priority
             />
-          </a>
+          </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-7">
-            {links.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-xs font-semibold tracking-widest uppercase text-[#e8e8f0] hover:text-[#d4af37] transition-colors duration-200 relative group"
-                style={{ fontFamily: 'var(--font-body)' }}
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex items-center gap-10">
+            {navLinks.map((link) => (
+              <button
+                key={link.label}
+                onClick={() => handleNavClick(link.href)}
+                className="text-[11px] tracking-[0.2em] text-[#64748b] hover:text-[#d4af37] transition-colors duration-200 cursor-pointer bg-transparent border-none"
+                style={{ fontFamily: "var(--font-mono)" }}
               >
                 {link.label}
-                <span className="absolute -bottom-1 left-0 right-0 h-px bg-[#d4af37] scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
-              </a>
+              </button>
             ))}
           </nav>
 
           {/* Desktop CTA */}
-          <a
-            href={BOOKING}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-sm transition-all duration-200 hover:scale-105"
-            style={{
-              background: '#d4af37',
-              color: '#07071a',
-              fontFamily: 'var(--font-body)',
-            }}
-          >
-            Book Free Demo
-          </a>
+          <div className="hidden md:flex items-center">
+            <a
+              href="https://cal.com/platinummarketingagency/15min"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[11px] tracking-[0.2em] text-[#d4af37] border border-[#d4af37] px-5 py-2.5 hover:bg-[#d4af37] hover:text-[#020617] transition-all duration-300"
+              style={{ fontFamily: "var(--font-mono)" }}
+            >
+              BOOK FREE DEMO
+            </a>
+          </div>
 
-          {/* Mobile hamburger */}
+          {/* Hamburger — mobile only */}
           <button
-            className="md:hidden text-[#e8e8f0] p-2"
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle menu"
+            className="md:hidden flex flex-col gap-1.5 p-2 relative z-60 bg-transparent border-none cursor-pointer"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
           >
-            {menuOpen ? <X size={22} /> : <Menu size={22} />}
+            <motion.span
+              className="block w-6 h-px bg-[#f8fafc]"
+              animate={menuOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
+              transition={{ duration: 0.3 }}
+            />
+            <motion.span
+              className="block w-6 h-px bg-[#f8fafc]"
+              animate={menuOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
+              transition={{ duration: 0.2 }}
+            />
+            <motion.span
+              className="block w-6 h-px bg-[#f8fafc]"
+              animate={menuOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
+              transition={{ duration: 0.3 }}
+            />
           </button>
         </div>
-      </motion.header>
+      </motion.nav>
 
-      {/* Mobile full-screen menu */}
+      {/* Mobile Full-Screen Overlay */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
+            className="fixed inset-0 z-40 bg-[#020617] flex flex-col items-center justify-center"
+            initial={shouldReduce ? {} : { opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-40 flex flex-col items-center justify-center"
-            style={{ background: '#07071a' }}
           >
+            {/* Corner coords */}
+            <p
+              className="absolute top-8 left-6 text-[9px] tracking-[0.2em] text-[#f8fafc]/20"
+              style={{ fontFamily: "var(--font-mono)" }}
+            >
+              LOC: BRISTOL_HQ
+            </p>
+
             <nav className="flex flex-col items-center gap-10">
-              {links.map((link, i) => (
-                <motion.a
-                  key={link.href}
-                  href={link.href}
-                  initial={{ opacity: 0, y: 20 }}
+              {navLinks.map((link, i) => (
+                <motion.button
+                  key={link.label}
+                  onClick={() => handleNavClick(link.href)}
+                  className="text-[13px] tracking-[0.3em] text-[#f8fafc] hover:text-[#d4af37] transition-colors duration-200 cursor-pointer bg-transparent border-none"
+                  style={{ fontFamily: "var(--font-mono)" }}
+                  initial={shouldReduce ? {} : { opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.07 }}
-                  className="text-2xl font-semibold tracking-widest uppercase text-[#e8e8f0] hover:text-[#d4af37] transition-colors"
-                  style={{ fontFamily: 'var(--font-heading)' }}
-                  onClick={() => setMenuOpen(false)}
+                  transition={{ delay: i * 0.07, duration: 0.4 }}
                 >
                   {link.label}
-                </motion.a>
+                </motion.button>
               ))}
               <motion.a
-                href={BOOKING}
+                href="https://cal.com/platinummarketingagency/15min"
                 target="_blank"
                 rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 20 }}
+                className="mt-4 text-[12px] tracking-[0.25em] text-[#020617] bg-[#d4af37] px-8 py-4"
+                style={{ fontFamily: "var(--font-mono)" }}
+                initial={shouldReduce ? {} : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: links.length * 0.07 }}
-                className="mt-4 px-8 py-3 rounded-lg font-semibold text-lg"
-                style={{ background: '#d4af37', color: '#07071a', fontFamily: 'var(--font-body)' }}
+                transition={{ delay: 0.32, duration: 0.4 }}
                 onClick={() => setMenuOpen(false)}
               >
-                Book Free Demo
+                BOOK FREE DEMO
               </motion.a>
             </nav>
           </motion.div>

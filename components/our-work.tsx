@@ -1,145 +1,208 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { ArrowRight, ExternalLink } from 'lucide-react';
+import { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 
 export default function OurWork() {
+  const shouldReduce = useReducedMotion();
+  const [hovered, setHovered] = useState(false);
+
   return (
-    <section id="work" className="section-pad" style={{ background: '#07071a' }}>
-      <div className="max-w-6xl mx-auto px-5">
-        {/* Heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
+    <section
+      id="work"
+      style={{ background: "#0a0f1e", padding: "120px 0" }}
+    >
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+        {/* Label */}
+        <motion.p
+          className="gold-label mb-6"
+          initial={shouldReduce ? {} : { opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-14"
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5 }}
         >
-          <h2
-            className="text-4xl md:text-5xl font-bold mb-4"
-            style={{ fontFamily: 'var(--font-heading)', color: '#e8e8f0' }}
-          >
-            Built By <span style={{ color: '#d4af37' }}>Platinum</span>
-          </h2>
-          <p
-            className="text-lg max-w-xl mx-auto"
-            style={{ color: '#6b6b8a', fontFamily: 'var(--font-body)' }}
-          >
-            Every demo below was built in under 5 days using our system.
-          </p>
-        </motion.div>
+          BUILT BY PLATINUM
+        </motion.p>
 
-        {/* Featured demo card */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.65 }}
-          className="relative rounded-2xl overflow-hidden border transition-all duration-300 hover:scale-[1.01]"
+        {/* Headline */}
+        <motion.h2
           style={{
-            background: '#11112e',
-            borderColor: '#1e1e42',
+            fontFamily: "var(--font-heading)",
+            fontWeight: 300,
+            fontSize: "clamp(40px, 5vw, 72px)",
+            lineHeight: 1.0,
+            color: "#f8fafc",
+            marginBottom: "64px",
           }}
-          whileHover={{
-            boxShadow: '0 0 60px rgba(212,175,55,0.2), 0 0 120px rgba(212,175,55,0.08)',
-            borderColor: 'rgba(212,175,55,0.4)',
-          }}
+          initial={shouldReduce ? {} : { opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, delay: 0.05 }}
         >
-          {/* Preview placeholder */}
-          <div
-            className="w-full h-64 md:h-80 flex items-center justify-center"
-            style={{
-              background: 'linear-gradient(135deg, #0d0d24 0%, #11112e 50%, #07071a 100%)',
-            }}
-          >
-            <div className="text-center">
-              <div
-                className="text-3xl md:text-4xl font-bold mb-2"
-                style={{ fontFamily: 'var(--font-heading)', color: '#d4af37' }}
-              >
-                Bristol Spark
-              </div>
-              <div
-                className="text-lg font-medium mb-4"
-                style={{ color: '#6b6b8a', fontFamily: 'var(--font-body)' }}
-              >
-                Electrical
-              </div>
-              <div className="flex items-center justify-center gap-3 flex-wrap">
-                {['NICEIC Approved', '24/7 Booking', 'AI Lead Response'].map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1 rounded-full text-xs font-medium"
-                    style={{
-                      background: 'rgba(212,175,55,0.1)',
-                      border: '1px solid rgba(212,175,55,0.25)',
-                      color: '#d4af37',
-                      fontFamily: 'var(--font-body)',
-                    }}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
+          See It Working.
+        </motion.h2>
 
-          {/* Info row */}
-          <div
-            className="p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4"
-            style={{ borderTop: '1px solid #1e1e42' }}
+        {/* Featured project card */}
+        <motion.div
+          initial={shouldReduce ? {} : { opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+        >
+          <motion.a
+            href="https://bristol-spark-electrical.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            onHoverStart={() => setHovered(true)}
+            onHoverEnd={() => setHovered(false)}
+            animate={{
+              borderColor: hovered
+                ? "rgba(212,175,55,0.4)"
+                : "rgba(212,175,55,0.15)",
+              boxShadow: hovered
+                ? "0 0 60px rgba(212,175,55,0.15), 0 0 120px rgba(212,175,55,0.06)"
+                : "0 0 0px rgba(212,175,55,0)",
+            }}
+            transition={{ duration: 0.3 }}
+            style={{
+              display: "block",
+              background: "#0f1729",
+              border: "1px solid rgba(212,175,55,0.15)",
+              padding: "48px",
+              textDecoration: "none",
+            }}
+            className="block"
           >
-            <div>
-              <h3
-                className="text-2xl font-bold mb-1"
-                style={{ fontFamily: 'var(--font-heading)', color: '#e8e8f0' }}
-              >
-                Bristol Spark Electrical
-              </h3>
-              <p
-                className="text-sm"
-                style={{ color: '#6b6b8a', fontFamily: 'var(--font-body)' }}
-              >
-                Built in 4 days for a Bristol electrician. NICEIC approved, 24/7 booking, automated lead response.
-              </p>
+            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
+              {/* Left — project info */}
+              <div className="flex-1">
+                <p
+                  className="gold-label mb-4"
+                  style={{ fontSize: "12px", letterSpacing: "0.2em" }}
+                >
+                  BRISTOL SPARK ELECTRICAL
+                </p>
+
+                <h3
+                  style={{
+                    fontFamily: "var(--font-heading)",
+                    fontWeight: 300,
+                    fontSize: "48px",
+                    lineHeight: 1.0,
+                    color: "#f8fafc",
+                    marginBottom: "16px",
+                  }}
+                >
+                  NICEIC Approved Electrician
+                </h3>
+
+                <p
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: "14px",
+                    color: "#64748b",
+                    marginBottom: "4px",
+                  }}
+                >
+                  Trade: Electrician · Bristol, UK
+                </p>
+                <p
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: "14px",
+                    color: "#64748b",
+                    marginBottom: "24px",
+                  }}
+                >
+                  Built in 4 days
+                </p>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-2">
+                  {["WEBSITE", "AUTOMATION", "LOCAL SEO"].map((tag) => (
+                    <span
+                      key={tag}
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        fontSize: "10px",
+                        letterSpacing: "0.15em",
+                        color: "#d4af37",
+                        border: "1px solid rgba(212,175,55,0.2)",
+                        padding: "4px 10px",
+                      }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right — arrow CTA */}
+              <div className="flex flex-col items-center lg:items-end gap-3 shrink-0">
+                <motion.span
+                  animate={{ x: hovered ? 8 : 0 }}
+                  transition={{ duration: 0.25 }}
+                  style={{
+                    fontFamily: "var(--font-heading)",
+                    fontWeight: 300,
+                    fontSize: "64px",
+                    lineHeight: 1,
+                    color: "#d4af37",
+                  }}
+                >
+                  →
+                </motion.span>
+                <span
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "11px",
+                    letterSpacing: "0.2em",
+                    color: "#d4af37",
+                  }}
+                >
+                  VIEW LIVE SITE
+                </span>
+              </div>
             </div>
-            <a
-              href="https://bristol-spark-electrical.vercel.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="magnetic-btn shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200 hover:scale-105"
-              style={{
-                background: '#d4af37',
-                color: '#07071a',
-                fontFamily: 'var(--font-body)',
-              }}
-            >
-              View Live Site <ExternalLink size={14} />
-            </a>
-          </div>
+          </motion.a>
         </motion.div>
 
-        {/* Teaser */}
+        {/* Teaser line */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          className="mt-16 text-center"
+          initial={shouldReduce ? {} : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-40px' }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-12 text-center"
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, delay: 0.2 }}
         >
           <p
-            className="text-lg font-medium mb-3"
-            style={{ color: '#e8e8f0', fontFamily: 'var(--font-body)' }}
+            style={{
+              fontFamily: "var(--font-heading)",
+              fontWeight: 300,
+              fontStyle: "italic",
+              fontSize: "clamp(22px, 3vw, 32px)",
+              color: "#64748b",
+              marginBottom: "16px",
+            }}
           >
             Your business could be next.
           </p>
-          <a
-            href="#pricing"
-            className="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-200 hover:gap-3"
-            style={{ color: '#d4af37', fontFamily: 'var(--font-body)' }}
+          <button
+            onClick={() => {
+              const el = document.querySelector("#pricing");
+              if (el) el.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="cursor-pointer bg-transparent border-none"
+            style={{ color: "#d4af37" }}
           >
-            See pricing <ArrowRight size={16} />
-          </a>
+            <motion.span
+              animate={{ y: [0, 4, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+              style={{ display: "block", fontSize: "20px" }}
+            >
+              ↓
+            </motion.span>
+          </button>
         </motion.div>
       </div>
     </section>

@@ -1,278 +1,314 @@
-'use client';
+"use client";
 
-import { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import dynamic from "next/dynamic";
+import { useRef, useState, useEffect } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
+import MagneticButton from "@/components/MagneticButton";
 
-const BOOKING = 'https://cal.com/platinummarketingagency/15min';
+// Three.js canvas — loaded client-side only to avoid SSR issues
+const KineticBackground = dynamic(
+  () => import("@/components/KineticBackground"),
+  { ssr: false }
+);
 
-/* ── Canvas particle background ── */
-function ParticleCanvas() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+const BOOKING = "https://cal.com/platinummarketingagency/15min";
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let animId: number;
-    let W = 0, H = 0;
-
-    interface Particle {
-      x: number; y: number;
-      vx: number; vy: number;
-      r: number;
-    }
-
-    const particles: Particle[] = [];
-    const COUNT = 80;
-    const CONNECT_DIST = 80;
-
-    function resize() {
-      W = canvas!.width = canvas!.offsetWidth;
-      H = canvas!.height = canvas!.offsetHeight;
-    }
-
-    function init() {
-      particles.length = 0;
-      for (let i = 0; i < COUNT; i++) {
-        particles.push({
-          x: Math.random() * W,
-          y: Math.random() * H,
-          vx: (Math.random() - 0.5) * 0.4,
-          vy: (Math.random() - 0.5) * 0.4,
-          r: Math.random() * 1.5 + 0.5,
-        });
-      }
-    }
-
-    function draw() {
-      ctx!.clearRect(0, 0, W, H);
-
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0 || p.x > W) p.vx *= -1;
-        if (p.y < 0 || p.y > H) p.vy *= -1;
-
-        // Draw dot
-        ctx!.beginPath();
-        ctx!.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx!.fillStyle = 'rgba(212,175,55,0.55)';
-        ctx!.fill();
-
-        // Connect nearby
-        for (let j = i + 1; j < particles.length; j++) {
-          const q = particles[j];
-          const dx = p.x - q.x, dy = p.y - q.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < CONNECT_DIST) {
-            const alpha = (1 - dist / CONNECT_DIST) * 0.15;
-            ctx!.beginPath();
-            ctx!.moveTo(p.x, p.y);
-            ctx!.lineTo(q.x, q.y);
-            ctx!.strokeStyle = `rgba(212,175,55,${alpha})`;
-            ctx!.lineWidth = 0.5;
-            ctx!.stroke();
-          }
-        }
-      }
-      animId = requestAnimationFrame(draw);
-    }
-
-    const ro = new ResizeObserver(() => {
-      resize();
-      init();
-    });
-    ro.observe(canvas);
-    resize();
-    init();
-    draw();
-
-    return () => {
-      cancelAnimationFrame(animId);
-      ro.disconnect();
-    };
-  }, []);
-
+/* ── Gold underline SVG ── */
+function GoldUnderline({ visible }: { visible: boolean }) {
   return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 w-full h-full pointer-events-none"
-      aria-hidden="true"
-    />
-  );
-}
-
-/* ── Word-by-word headline ── */
-const headline = ['We', 'Build,', 'You', 'Work.'];
-
-function AnimatedHeadline() {
-  return (
-    <h1
-      className="font-bold leading-none tracking-tight mb-6 text-[#e8e8f0]"
-      style={{
-        fontFamily: 'var(--font-heading)',
-        fontSize: 'clamp(48px, 8vw, 96px)',
-      }}
+    <svg
+      viewBox="0 0 60 4"
+      className="absolute -bottom-2 right-0"
+      style={{ width: "60px", height: "4px", overflow: "visible" }}
+      aria-hidden
     >
-      {headline.map((word, i) => (
-        <motion.span
-          key={i}
-          initial={{ opacity: 0, y: 40, rotateX: 90 }}
-          animate={{ opacity: 1, y: 0, rotateX: 0 }}
-          transition={{
-            duration: 0.55,
-            delay: 0.3 + i * 0.1,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          className="inline-block mr-[0.2em]"
-          style={{ transformOrigin: 'bottom center', perspective: 400 }}
-        >
-          {i === 3 ? (
-            <span style={{ color: '#d4af37' }}>{word}</span>
-          ) : word}
-        </motion.span>
-      ))}
-    </h1>
+      <motion.line
+        x1="0"
+        y1="2"
+        x2="60"
+        y2="2"
+        stroke="#d4af37"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        initial={{ pathLength: 0, opacity: 0 }}
+        animate={visible ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+      />
+    </svg>
   );
 }
 
 /* ── Notification cards ── */
-const notifications = [
+const cards = [
   {
-    dot: '#d4af37',
-    text: 'New Lead Captured — Electrician in Bristol replied in 47 seconds',
+    dot: "#d4af37",
+    title: "Lead Captured",
+    body: "Bristol electrician replied in 47 seconds",
+    floatDelay: 0,
   },
   {
-    dot: '#10b981',
-    text: 'Website Live — Bristol Spark Electrical deployed in 4 days',
+    dot: "#22c55e",
+    title: "Site Live",
+    body: "Bristol Spark deployed in 4 days",
+    floatDelay: 0.5,
   },
   {
-    dot: '#4f46e5',
-    text: 'Client Win — Roofer booked 3 new jobs this week',
+    dot: "#3b82f6",
+    title: "Job Won",
+    body: "Roofer booked 3 new jobs this week",
+    floatDelay: 1.0,
   },
 ];
 
-export default function Hero() {
+function NotifCard({
+  card,
+  index,
+}: {
+  card: (typeof cards)[0];
+  index: number;
+}) {
+  const shouldReduce = useReducedMotion();
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-24 pb-16">
-      {/* Dark bg */}
-      <div className="absolute inset-0" style={{ background: '#07071a' }} />
+    <motion.div
+      initial={shouldReduce ? {} : { x: 80, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{
+        delay: 1.8 + index * 0.15,
+        duration: 0.6,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+    >
+      <motion.div
+        animate={shouldReduce ? {} : { y: [0, -6, 0] }}
+        transition={{
+          duration: 3,
+          delay: card.floatDelay,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        style={{
+          background: "rgba(15,23,41,0.85)",
+          border: "1px solid rgba(212,175,55,0.15)",
+          backdropFilter: "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)",
+          borderRadius: "8px",
+          padding: "12px 16px",
+        }}
+        className="flex items-start gap-3 min-w-[220px]"
+      >
+        <span
+          className="mt-1 w-2 h-2 rounded-full shrink-0 animate-pulse-dot"
+          style={{
+            background: card.dot,
+            boxShadow: `0 0 6px ${card.dot}`,
+          }}
+        />
+        <div>
+          <p
+            className="text-[11px] tracking-[0.1em] mb-0.5 text-[#f8fafc]"
+            style={{ fontFamily: "var(--font-mono)" }}
+          >
+            {card.title}
+          </p>
+          <p
+            className="text-[13px] leading-snug text-[#64748b]"
+            style={{ fontFamily: "var(--font-body)" }}
+          >
+            {card.body}
+          </p>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
 
-      {/* Radial gradient accent */}
+/* ── Hero ── */
+export default function Hero() {
+  const shouldReduce = useReducedMotion();
+  const [underlineVisible, setUnderlineVisible] = useState(false);
+
+  // Show underline after the headline animation finishes (~1.6s)
+  useEffect(() => {
+    const t = setTimeout(() => setUnderlineVisible(true), 1600);
+    return () => clearTimeout(t);
+  }, []);
+
+  return (
+    <section
+      id="hero"
+      className="relative w-full overflow-hidden"
+      style={{
+        background: "#020617",
+        minHeight: "100svh",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      {/* Three.js kinetic grid background */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden>
+        <KineticBackground opacityScale={1} packetCount={80} />
+      </div>
+
+      {/* Radial vignette so text stays readable */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(ellipse 80% 60% at 50% 40%, rgba(212,175,55,0.04) 0%, transparent 70%)',
+            "radial-gradient(ellipse 70% 60% at 50% 50%, transparent 30%, rgba(2,6,23,0.6) 100%)",
         }}
+        aria-hidden
       />
 
-      {/* Particle canvas */}
-      <ParticleCanvas />
+      {/* Main content — left aligned, vertically centred */}
+      <div className="relative z-10 flex-1 flex flex-col justify-center max-w-[1400px] mx-auto w-full px-6 lg:px-12 pt-28 pb-24">
 
-      {/* Content */}
-      <div className="relative z-10 max-w-5xl mx-auto px-5 w-full text-center">
-        {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+        {/* Gold label */}
+        <motion.p
+          className="gold-label mb-8"
+          initial={shouldReduce ? {} : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 mb-10 px-5 py-2 rounded-full border text-sm font-medium"
-          style={{
-            background: 'rgba(212,175,55,0.08)',
-            borderColor: 'rgba(212,175,55,0.25)',
-            color: '#d4af37',
-            fontFamily: 'var(--font-body)',
-          }}
+          transition={{ duration: 0.6, delay: 0.1 }}
         >
-          <span className="w-2 h-2 rounded-full bg-[#d4af37] animate-pulse" />
-          Premium Websites &amp; Automation for UK Trades
-        </motion.div>
+          PLATINUM MARKETING AGENCY / BRISTOL
+        </motion.p>
 
-        {/* Headline */}
-        <AnimatedHeadline />
+        {/* Lock-in headline */}
+        <div className="flex flex-col md:flex-row md:items-end gap-0 md:gap-6 mb-8">
+          {/* Line 1 — slides from left */}
+          <motion.div
+            className="relative"
+            initial={shouldReduce ? {} : { x: -80, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+          >
+            <h1
+              className="text-[#f8fafc] whitespace-nowrap"
+              style={{
+                fontFamily: "var(--font-heading)",
+                fontWeight: 300,
+                fontSize: "clamp(52px, 8vw, 96px)",
+                lineHeight: 0.95,
+                letterSpacing: "-0.02em",
+              }}
+            >
+              WE BUILD.
+            </h1>
+          </motion.div>
+
+          {/* Line 2 — slides from right */}
+          <motion.div
+            className="relative"
+            initial={shouldReduce ? {} : { x: 80, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
+          >
+            <h1
+              className="text-[#f8fafc] whitespace-nowrap relative inline-block"
+              style={{
+                fontFamily: "var(--font-heading)",
+                fontWeight: 300,
+                fontSize: "clamp(52px, 8vw, 96px)",
+                lineHeight: 0.95,
+                letterSpacing: "-0.02em",
+              }}
+            >
+              YOU WORK.
+              <GoldUnderline visible={underlineVisible} />
+            </h1>
+          </motion.div>
+        </div>
 
         {/* Subheadline */}
         <motion.p
-          initial={{ opacity: 0, y: 24 }}
+          className="text-[#64748b] mb-12 max-w-[480px]"
+          style={{
+            fontFamily: "var(--font-body)",
+            fontSize: "17px",
+            lineHeight: 1.7,
+          }}
+          initial={shouldReduce ? {} : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.7 }}
-          className="text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed"
-          style={{ color: '#6b6b8a', fontFamily: 'var(--font-body)' }}
+          transition={{ duration: 0.7, delay: 1.2 }}
         >
-          Premium websites and automation for UK trades businesses —{' '}
-          <span style={{ color: '#e8e8f0' }}>live in 5 days</span>,{' '}
-          <span style={{ color: '#e8e8f0' }}>running 24/7</span> from day one.
+          Premium websites and automation for UK trades businesses — live in 5
+          days, running 24/7 from day one.
         </motion.p>
 
         {/* CTAs */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          className="flex flex-col sm:flex-row items-start gap-4 mb-20"
+          initial={shouldReduce ? {} : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.85 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
+          transition={{ duration: 0.7, delay: 1.4 }}
         >
-          <a
-            href="#work"
-            className="magnetic-btn px-8 py-4 rounded-xl font-semibold text-base transition-all duration-200 hover:scale-105"
-            style={{
-              background: '#d4af37',
-              color: '#07071a',
-              fontFamily: 'var(--font-body)',
-              boxShadow: '0 0 30px rgba(212,175,55,0.3)',
-            }}
-          >
-            See Our Work
-          </a>
+          {/* Primary */}
+          <MagneticButton href="#work">
+            <span
+              className="text-[#020617] text-[11px] tracking-[0.25em]"
+              style={{ fontFamily: "var(--font-mono)" }}
+            >
+              SEE OUR WORK →
+            </span>
+          </MagneticButton>
+
+          {/* Secondary — text only */}
           <a
             href={BOOKING}
             target="_blank"
             rel="noopener noreferrer"
-            className="magnetic-btn px-8 py-4 rounded-xl font-semibold text-base transition-all duration-200 hover:scale-105"
-            style={{
-              border: '1px solid rgba(212,175,55,0.4)',
-              color: '#e8e8f0',
-              background: 'transparent',
-              fontFamily: 'var(--font-body)',
-            }}
+            className="group flex items-center gap-2 text-[#d4af37] text-[13px] py-3"
+            style={{ fontFamily: "var(--font-mono)", letterSpacing: "0.15em" }}
           >
-            Book Free Demo
+            BOOK FREE DEMO
+            <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">
+              →
+            </span>
           </a>
         </motion.div>
 
         {/* Notification cards */}
-        <div className="flex flex-col md:flex-row items-center justify-center gap-4 max-w-4xl mx-auto">
-          {notifications.map((n, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 1.0 + i * 0.15 }}
-              className="notif-card flex-1 min-w-0"
-            >
-              <span
-                className="w-2.5 h-2.5 rounded-full shrink-0"
-                style={{ background: n.dot, boxShadow: `0 0 8px ${n.dot}` }}
-              />
-              <p
-                className="text-sm leading-snug"
-                style={{ color: '#e8e8f0', fontFamily: 'var(--font-body)' }}
-              >
-                {n.text}
-              </p>
-            </motion.div>
+        <div className="flex flex-wrap gap-3">
+          {cards.map((card, i) => (
+            <NotifCard key={i} card={card} index={i} />
           ))}
         </div>
       </div>
 
-      {/* Bottom fade */}
-      <div
-        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
-        style={{ background: 'linear-gradient(to top, #07071a, transparent)' }}
-      />
+      {/* Scroll indicator */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10"
+        initial={shouldReduce ? {} : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 2.2 }}
+      >
+        <span
+          className="text-[9px] tracking-[0.3em] text-[#f8fafc]/30"
+          style={{ fontFamily: "var(--font-mono)" }}
+        >
+          SCROLL
+        </span>
+        <ChevronDown
+          size={14}
+          className="text-[#f8fafc]/30 animate-bounce-slow"
+        />
+      </motion.div>
+
+      {/* Bristol coordinates footer */}
+      <div className="absolute bottom-4 left-0 right-0 px-6 lg:px-12 flex justify-between z-10 pointer-events-none">
+        <span
+          className="text-[9px] tracking-[0.15em]"
+          style={{ fontFamily: "var(--font-mono)", color: "rgba(248,250,252,0.2)" }}
+        >
+          LOC: BRISTOL_HQ / CRD: 51.4545 N, 2.5879 W
+        </span>
+        <span
+          className="text-[9px] tracking-[0.15em] hidden sm:block"
+          style={{ fontFamily: "var(--font-mono)", color: "rgba(248,250,252,0.2)" }}
+        >
+          CORE: KINETIC_V2 / THREAD: STABLE_ACTIVE
+        </span>
+      </div>
     </section>
   );
 }

@@ -1,130 +1,181 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import dynamic from "next/dynamic";
+import { useRef, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 
-const BOOKING = 'https://cal.com/platinummarketingagency/15min';
+const KineticBackground = dynamic(
+  () => import("@/components/KineticBackground"),
+  { ssr: false }
+);
 
-function ParticleCanvas() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+const BOOKING = "https://cal.com/platinummarketingagency/15min";
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+function MagneticCTA() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [pos, setPos] = useState({ x: 0, y: 0 });
+  const shouldReduce = useReducedMotion();
 
-    let animId: number;
-    let W = 0, H = 0;
-
-    interface P { x: number; y: number; vx: number; vy: number; r: number }
-    const pts: P[] = [];
-
-    function resize() {
-      W = canvas!.width = canvas!.offsetWidth;
-      H = canvas!.height = canvas!.offsetHeight;
-    }
-    function init() {
-      pts.length = 0;
-      for (let i = 0; i < 50; i++) {
-        pts.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3, r: Math.random() * 1.2 + 0.4 });
-      }
-    }
-    function draw() {
-      ctx!.clearRect(0, 0, W, H);
-      for (const p of pts) {
-        p.x += p.vx; p.y += p.vy;
-        if (p.x < 0 || p.x > W) p.vx *= -1;
-        if (p.y < 0 || p.y > H) p.vy *= -1;
-        ctx!.beginPath(); ctx!.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx!.fillStyle = 'rgba(212,175,55,0.4)'; ctx!.fill();
-      }
-      animId = requestAnimationFrame(draw);
-    }
-    const ro = new ResizeObserver(() => { resize(); init(); });
-    ro.observe(canvas);
-    resize(); init(); draw();
-    return () => { cancelAnimationFrame(animId); ro.disconnect(); };
-  }, []);
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (shouldReduce || !ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    setPos({ x: (e.clientX - cx) * 0.3, y: (e.clientY - cy) * 0.3 });
+  };
 
   return (
-    <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true" />
+    <a
+      href={BOOKING}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{ display: "inline-block", textDecoration: "none" }}
+      onMouseLeave={() => setPos({ x: 0, y: 0 })}
+    >
+      <motion.div
+        ref={ref}
+        animate={{ x: pos.x, y: pos.y }}
+        transition={{ type: "spring", stiffness: 150, damping: 15 }}
+        onMouseMove={handleMouseMove}
+        className="animate-glow-pulse"
+        style={{
+          background: "#d4af37",
+          padding: "18px 56px",
+          cursor: "pointer",
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <span
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "12px",
+            letterSpacing: "0.25em",
+            color: "#020617",
+          }}
+        >
+          BOOK FREE DEMO TODAY
+        </span>
+      </motion.div>
+    </a>
   );
 }
 
 export default function FinalCTA() {
+  const shouldReduce = useReducedMotion();
+
   return (
     <section
       id="contact"
-      className="relative section-pad overflow-hidden"
-      style={{ background: '#07071a' }}
+      className="relative overflow-hidden"
+      style={{ background: "#020617", padding: "160px 0" }}
     >
-      {/* Gold gradient overlay */}
+      {/* KineticBackground at 40% opacity — slower, more subtle */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ opacity: 0.4 }}
+        aria-hidden
+      >
+        <KineticBackground opacityScale={0.6} packetCount={40} />
+      </div>
+
+      {/* Radial vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse 80% 60% at 50% 50%, rgba(212,175,55,0.06) 0%, transparent 70%)',
+          background:
+            "radial-gradient(ellipse 80% 70% at 50% 50%, transparent 20%, rgba(2,6,23,0.7) 100%)",
         }}
+        aria-hidden
       />
 
-      <ParticleCanvas />
-
-      <div className="relative z-10 max-w-3xl mx-auto px-5 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
+      {/* Content — centred */}
+      <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col items-center text-center">
+        {/* Label */}
+        <motion.p
+          className="gold-label mb-8"
+          initial={shouldReduce ? {} : { opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.7 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5 }}
         >
-          <h2
-            className="text-4xl md:text-6xl font-bold mb-6 leading-tight"
-            style={{ fontFamily: 'var(--font-heading)', color: '#e8e8f0' }}
-          >
-            Ready to Stop{' '}
-            <span style={{ color: '#d4af37' }}>Losing Jobs</span> Online?
-          </h2>
+          GET STARTED
+        </motion.p>
 
-          <p
-            className="text-lg mb-10"
-            style={{ color: '#6b6b8a', fontFamily: 'var(--font-body)' }}
-          >
-            Book a free 15-minute demo. We&apos;ll show you exactly what your business is missing and how to fix it.
-          </p>
+        {/* Headline */}
+        <motion.h2
+          style={{
+            fontFamily: "var(--font-heading)",
+            fontWeight: 300,
+            fontSize: "clamp(44px, 6vw, 80px)",
+            lineHeight: 0.95,
+            color: "#f8fafc",
+            marginBottom: "32px",
+            maxWidth: "700px",
+          }}
+          initial={shouldReduce ? {} : { opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+        >
+          Ready to Stop
+          <br />
+          Losing Jobs Online?
+        </motion.h2>
 
-          <a
-            href={BOOKING}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="magnetic-btn inline-flex items-center justify-center px-10 py-5 rounded-xl font-bold text-lg transition-all duration-200 hover:scale-105 animate-glow-pulse mb-6"
-            style={{
-              background: '#d4af37',
-              color: '#07071a',
-              fontFamily: 'var(--font-body)',
-            }}
-          >
-            Book Free Demo Today
-          </a>
+        {/* Subheadline */}
+        <motion.p
+          style={{
+            fontFamily: "var(--font-body)",
+            fontSize: "18px",
+            color: "#64748b",
+            lineHeight: 1.7,
+            maxWidth: "560px",
+            marginBottom: "56px",
+          }}
+          initial={shouldReduce ? {} : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+        >
+          Book a free 15-minute demo. No obligation. No hard sell. Just straight
+          advice on what your business is missing and how to fix it.
+        </motion.p>
 
-          <p
-            className="text-sm mb-8"
-            style={{ color: '#6b6b8a', fontFamily: 'var(--font-body)' }}
-          >
-            No obligation. No hard sell. Just straight advice.
-          </p>
-
-          <div
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm"
-            style={{ color: '#6b6b8a', fontFamily: 'var(--font-body)' }}
-          >
-            <a href="tel:07594217753" className="hover:text-[#d4af37] transition-colors">
-              07594 217753
-            </a>
-            <span className="hidden sm:block" style={{ color: '#1e1e42' }}>·</span>
-            <a href="mailto:helloplatinummarketing@gmail.com" className="hover:text-[#d4af37] transition-colors">
-              helloplatinummarketing@gmail.com
-            </a>
-          </div>
+        {/* Magnetic CTA */}
+        <motion.div
+          initial={shouldReduce ? {} : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          style={{ marginBottom: "24px" }}
+        >
+          <MagneticCTA />
         </motion.div>
+
+        {/* Phone */}
+        <motion.p
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "11px",
+            letterSpacing: "0.2em",
+            color: "#64748b",
+          }}
+          initial={shouldReduce ? {} : { opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5, delay: 0.45 }}
+        >
+          or call{" "}
+          <a
+            href="tel:07594217753"
+            style={{ color: "#64748b", textDecoration: "none" }}
+            className="hover:text-[#d4af37] transition-colors duration-200"
+          >
+            07594 217753
+          </a>
+        </motion.p>
       </div>
     </section>
   );

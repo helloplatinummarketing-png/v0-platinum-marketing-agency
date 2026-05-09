@@ -1,105 +1,93 @@
-'use client';
+"use client";
 
-import { motion, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { useEffect, useRef } from 'react';
-
-function MorphingNumber({
-  target,
-  prefix = '',
-  suffix = '',
-}: {
-  target: number;
-  prefix?: string;
-  suffix?: string;
-}) {
-  const spanRef = useRef<HTMLSpanElement>(null);
-  const inView = useInView(spanRef, { once: true, margin: '-80px' });
-  const raw = useMotionValue(0);
-  const spring = useSpring(raw, { damping: 20, stiffness: 50 });
-  const display = useTransform(spring, (v) => `${prefix}${Math.round(v).toLocaleString()}${suffix}`);
-
-  useEffect(() => {
-    if (inView) raw.set(target);
-  }, [inView, raw, target]);
-
-  return <motion.span ref={spanRef}>{display}</motion.span>;
-}
+import { motion, useReducedMotion } from "framer-motion";
 
 const stats = [
-  {
-    value: 91,
-    prefix: '',
-    suffix: '%',
-    label: 'of customers search online before calling a tradesperson',
-  },
-  {
-    value: 78,
-    prefix: '',
-    suffix: '%',
-    label: 'of jobs go to whoever responds first',
-  },
-  {
-    value: 2400,
-    prefix: '£',
-    suffix: '',
-    label: 'lost every month from missed calls and cold quotes',
-  },
+  { number: "91%", label: "Customers search online first" },
+  { number: "5 Days", label: "Average site delivery" },
+  { number: "24/7", label: "Automation uptime" },
+  { number: "£0", label: "Cost to book a demo" },
+  { number: "30 Days", label: "Notice to cancel" },
 ];
 
-export default function Stats() {
-  return (
-    <section className="section-pad" style={{ background: '#0d0d24' }}>
-      <div className="max-w-6xl mx-auto px-5">
-        {/* Heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-14"
-        >
-          <h2
-            className="text-4xl md:text-5xl font-bold mb-5 leading-tight"
-            style={{ fontFamily: 'var(--font-heading)', color: '#e8e8f0' }}
-          >
-            Most Trades Businesses Are{' '}
-            <span style={{ color: '#d4af37' }}>Invisible Online.</span>
-            <br />
-            Here&apos;s What That Costs.
-          </h2>
-        </motion.div>
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.05,
+    },
+  },
+};
 
-        {/* Stat cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+const itemVariants = {
+  hidden: { opacity: 0, x: -30 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.55, ease: "easeOut" as const },
+  },
+};
+
+export default function Stats() {
+  const shouldReduce = useReducedMotion();
+
+  return (
+    <section
+      style={{
+        background: "rgba(212,175,55,0.03)",
+        borderTop: "1px solid rgba(212,175,55,0.1)",
+        borderBottom: "1px solid rgba(212,175,55,0.1)",
+        padding: "40px 0",
+      }}
+    >
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+        <motion.div
+          className="flex flex-col md:flex-row items-center justify-between"
+          variants={shouldReduce ? {} : containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           {stats.map((stat, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.55, delay: i * 0.15 }}
-              className="platinum-card p-8"
-              style={{ borderLeft: '4px solid #d4af37' }}
+              variants={shouldReduce ? {} : itemVariants}
+              className="flex flex-col items-center text-center py-6 md:py-0 w-full md:w-auto relative"
             >
-              <div
-                className="counter-number text-6xl md:text-7xl mb-4"
-                style={{ color: '#d4af37' }}
-              >
-                <MorphingNumber
-                  target={stat.value}
-                  prefix={stat.prefix}
-                  suffix={stat.suffix}
+              {/* Gold vertical divider — only between items */}
+              {i > 0 && (
+                <span
+                  className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2"
+                  style={{
+                    width: "1px",
+                    height: "60px",
+                    background: "rgba(212,175,55,0.15)",
+                  }}
+                  aria-hidden
                 />
-              </div>
-              <p
-                className="text-base leading-snug"
-                style={{ color: '#6b6b8a', fontFamily: 'var(--font-body)' }}
+              )}
+
+              <span
+                style={{
+                  fontFamily: "var(--font-heading)",
+                  fontWeight: 300,
+                  fontSize: "52px",
+                  lineHeight: 1,
+                  color: "#d4af37",
+                }}
+              >
+                {stat.number}
+              </span>
+              <span
+                className="mt-2 text-[10px] tracking-[0.18em] text-[#64748b] uppercase"
+                style={{ fontFamily: "var(--font-mono)" }}
               >
                 {stat.label}
-              </p>
+              </span>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

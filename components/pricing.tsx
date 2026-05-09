@@ -1,228 +1,321 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { Check } from 'lucide-react';
+import { motion, useReducedMotion } from "framer-motion";
+import { Check } from "lucide-react";
 
-const BOOKING = 'https://cal.com/platinummarketingagency/15min';
+const BOOKING = "https://cal.com/platinummarketingagency/15min";
 
 const packages = [
   {
-    name: 'The Visibility Package',
-    badge: { text: 'Most Popular Entry Point', color: '#d4af37' },
-    build: '£750',
-    monthly: '£79/month',
+    tag: "ENTRY POINT",
+    tagColor: "#d4af37",
+    name: "Visibility Package",
+    price: "£750",
+    monthly: "+ £79/month",
     features: [
-      'Premium animated website',
-      'Local SEO setup',
-      'Google Business Profile optimised',
-      'Contact form with instant notifications',
-      'Hosting and maintenance',
-      'Live in 5 working days',
+      "Premium animated website",
+      "Local SEO setup",
+      "Google Business Profile optimised",
+      "Contact form + instant notifications",
+      "Hosting and maintenance",
+      "Live in 5 working days",
     ],
-    cta: 'Get Started',
+    cta: "GET STARTED →",
+    ctaStyle: "text",
     featured: false,
   },
   {
-    name: 'The Lead Machine',
-    badge: { text: 'Best For Lead Generation', color: '#4f46e5' },
-    build: '£1,200',
-    monthly: '£247/month',
+    tag: "BEST FOR LEADS",
+    tagColor: "#d4af37",
+    name: "Lead Machine",
+    price: "£1,200",
+    monthly: "+ £247/month",
     features: [
-      'Everything in Visibility',
-      'AI chatbot on website',
-      'Missed call text-back (30 seconds)',
-      'Instant lead response (60 seconds)',
-      'Review collection automation',
-      'Lead tracking dashboard',
+      "Everything in Visibility",
+      "AI chatbot on website",
+      "Missed call text-back (30 seconds)",
+      "Instant lead response (60 seconds)",
+      "Review collection automation",
+      "Lead tracking dashboard",
     ],
-    cta: 'Get Started',
+    cta: "GET STARTED →",
+    ctaStyle: "text",
     featured: false,
   },
   {
-    name: 'The Reputation Builder',
-    badge: null,
-    build: '£400',
-    monthly: '£79/month',
+    tag: "QUICK WIN",
+    tagColor: "#d4af37",
+    name: "Reputation Builder",
+    price: "£400",
+    monthly: "+ £79/month",
     features: [
-      'Automated review request after every job',
-      'Direct Google review link',
-      '5-day follow-up reminder',
-      'Review tracking dashboard',
-      'Monthly report',
+      "Automated review requests after every job",
+      "Direct Google review link",
+      "5-day follow-up reminder",
+      "Review tracking dashboard",
+      "Monthly report",
     ],
-    cta: 'Get Started',
+    cta: "GET STARTED →",
+    ctaStyle: "text",
     featured: false,
   },
   {
-    name: 'The Full System',
-    badge: { text: 'Most Comprehensive', color: '#10b981' },
-    build: '£2,000',
-    monthly: '£497/month',
+    tag: "MOST COMPLETE",
+    tagColor: "#22c55e",
+    name: "Full System",
+    price: "£2,000",
+    monthly: "+ £497/month",
     features: [
-      'Everything in Lead Machine',
-      'Appointment reminders (48hr and 2hr)',
-      'No-show recovery',
-      'Quote follow-up sequence (Day 3, 7, 14)',
-      'Invoice chase sequence',
-      'Repeat business follow-up',
-      'AI voice caller for quotes',
-      'Monthly performance report',
-      'Direct WhatsApp access to Platinum team',
+      "Everything in Lead Machine",
+      "Appointment reminders (48hr + 2hr)",
+      "No-show recovery",
+      "Quote follow-up (Day 3, 7, 14)",
+      "Invoice chase sequence",
+      "Repeat business follow-up",
+      "AI voice caller for quotes",
+      "Monthly performance report",
+      "Direct WhatsApp access to Platinum",
     ],
-    cta: 'Book Free Demo',
+    cta: "BOOK FREE DEMO →",
+    ctaStyle: "filled",
     featured: true,
   },
 ];
 
-export default function Pricing() {
+function PricingCard({
+  pkg,
+  index,
+  shouldReduce,
+}: {
+  pkg: (typeof packages)[0];
+  index: number;
+  shouldReduce: boolean | null;
+}) {
   return (
-    <section id="pricing" className="section-pad" style={{ background: '#07071a' }}>
-      <div className="max-w-6xl mx-auto px-5">
-        {/* Heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-4"
+    <motion.div
+      initial={shouldReduce ? {} : { opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
+      whileHover={{ y: -4 }}
+      style={{
+        background: "#0f1729",
+        border: pkg.featured
+          ? "1px solid rgba(212,175,55,0.4)"
+          : "1px solid rgba(212,175,55,0.12)",
+        padding: "40px",
+        display: "flex",
+        flexDirection: "column",
+        position: "relative",
+        transition: "border-color 0.3s ease",
+      }}
+      className={pkg.featured ? "animate-border-glow" : ""}
+    >
+      {/* Tag */}
+      <p
+        style={{
+          fontFamily: "var(--font-mono)",
+          fontSize: "10px",
+          letterSpacing: "0.18em",
+          color: pkg.tagColor,
+          marginBottom: "20px",
+        }}
+      >
+        {pkg.tag}
+      </p>
+
+      {/* Package name */}
+      <h3
+        style={{
+          fontFamily: "var(--font-heading)",
+          fontWeight: 300,
+          fontSize: "24px",
+          color: "#f8fafc",
+          marginBottom: "16px",
+          lineHeight: 1.1,
+        }}
+      >
+        {pkg.name}
+      </h3>
+
+      {/* Price */}
+      <div style={{ marginBottom: "8px" }}>
+        <span
+          style={{
+            fontFamily: "var(--font-heading)",
+            fontWeight: 300,
+            fontSize: "64px",
+            lineHeight: 1,
+            color: "#d4af37",
+          }}
         >
-          <h2
-            className="text-4xl md:text-5xl font-bold mb-4"
-            style={{ fontFamily: 'var(--font-heading)', color: '#e8e8f0' }}
-          >
-            Simple Pricing.{' '}
-            <span style={{ color: '#d4af37' }}>No Surprises.</span>
-          </h2>
-          <p
-            className="text-lg max-w-xl mx-auto"
-            style={{ color: '#6b6b8a', fontFamily: 'var(--font-body)' }}
-          >
-            No long-term contracts. Cancel anytime. Most clients see ROI within the first month.
-          </p>
-        </motion.div>
+          {pkg.price}
+        </span>
+      </div>
+      <p
+        style={{
+          fontFamily: "var(--font-body)",
+          fontSize: "14px",
+          color: "#64748b",
+          marginBottom: "28px",
+        }}
+      >
+        {pkg.monthly}
+      </p>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
+      {/* Divider */}
+      <div
+        style={{
+          height: "1px",
+          background: "rgba(212,175,55,0.1)",
+          marginBottom: "24px",
+        }}
+      />
+
+      {/* Features */}
+      <ul className="flex flex-col gap-3 flex-1" style={{ marginBottom: "32px" }}>
+        {pkg.features.map((f, fi) => (
+          <li
+            key={fi}
+            className="flex items-start gap-3"
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "14px",
+              color: "#f8fafc",
+              lineHeight: 1.5,
+            }}
+          >
+            <Check
+              size={14}
+              className="shrink-0 mt-0.5"
+              style={{ color: "#d4af37" }}
+            />
+            {f}
+          </li>
+        ))}
+      </ul>
+
+      {/* CTA */}
+      {pkg.ctaStyle === "filled" ? (
+        <a
+          href={BOOKING}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-center animate-glow-pulse"
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "11px",
+            letterSpacing: "0.2em",
+            background: "#d4af37",
+            color: "#020617",
+            padding: "16px 24px",
+            display: "block",
+            textDecoration: "none",
+            transition: "opacity 0.2s ease",
+          }}
+        >
+          {pkg.cta}
+        </a>
+      ) : (
+        <a
+          href={BOOKING}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "11px",
+            letterSpacing: "0.2em",
+            color: "#d4af37",
+            textDecoration: "none",
+            display: "block",
+            paddingTop: "8px",
+          }}
+        >
+          {pkg.cta}
+        </a>
+      )}
+    </motion.div>
+  );
+}
+
+export default function Pricing() {
+  const shouldReduce = useReducedMotion();
+
+  return (
+    <section
+      id="pricing"
+      style={{ background: "#020617", padding: "120px 0" }}
+    >
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+        {/* Label */}
+        <motion.p
+          className="gold-label mb-6"
+          initial={shouldReduce ? {} : { opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5 }}
+        >
+          INVESTMENT
+        </motion.p>
+
+        {/* Headline */}
+        <motion.h2
+          style={{
+            fontFamily: "var(--font-heading)",
+            fontWeight: 300,
+            fontSize: "clamp(40px, 5vw, 72px)",
+            lineHeight: 1.0,
+            color: "#f8fafc",
+            marginBottom: "80px",
+          }}
+          initial={shouldReduce ? {} : { opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, delay: 0.05 }}
+        >
+          Simple Pricing.
+          <br />
+          No Surprises.
+        </motion.h2>
+
+        {/* 2×2 grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {packages.map((pkg, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.55, delay: i * 0.1 }}
-              className={`relative rounded-2xl p-8 flex flex-col ${pkg.featured ? 'pricing-featured' : 'platinum-card'}`}
-              style={
-                pkg.featured
-                  ? { background: '#11112e', transform: 'scale(1.01)' }
-                  : { background: '#11112e' }
-              }
-            >
-              {/* Badge */}
-              {pkg.badge && (
-                <span
-                  className="inline-block px-3 py-1 rounded-full text-xs font-semibold mb-4 self-start"
-                  style={{
-                    background: `${pkg.badge.color}18`,
-                    border: `1px solid ${pkg.badge.color}40`,
-                    color: pkg.badge.color,
-                    fontFamily: 'var(--font-body)',
-                  }}
-                >
-                  {pkg.badge.text}
-                </span>
-              )}
-
-              {/* Name */}
-              <h3
-                className="text-xl font-bold mb-2"
-                style={{ fontFamily: 'var(--font-heading)', color: '#e8e8f0' }}
-              >
-                {pkg.name}
-              </h3>
-
-              {/* Price */}
-              <div className="flex items-baseline gap-2 mb-6">
-                <span
-                  className="text-4xl font-bold"
-                  style={{ fontFamily: 'var(--font-heading)', color: '#d4af37' }}
-                >
-                  {pkg.build}
-                </span>
-                <span
-                  className="text-base"
-                  style={{ color: '#6b6b8a', fontFamily: 'var(--font-body)' }}
-                >
-                  build +{' '}
-                </span>
-                <span
-                  className="text-lg font-semibold"
-                  style={{ color: '#e8e8f0', fontFamily: 'var(--font-body)' }}
-                >
-                  {pkg.monthly}
-                </span>
-              </div>
-
-              {/* Features */}
-              <ul className="flex flex-col gap-3 mb-8 flex-1">
-                {pkg.features.map((f, fi) => (
-                  <li
-                    key={fi}
-                    className="flex items-start gap-3 text-sm"
-                    style={{ color: '#e8e8f0', fontFamily: 'var(--font-body)' }}
-                  >
-                    <Check
-                      size={16}
-                      className="shrink-0 mt-0.5"
-                      style={{ color: '#d4af37' }}
-                    />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-
-              {/* CTA */}
-              <a
-                href={BOOKING}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="magnetic-btn w-full py-3.5 rounded-xl font-semibold text-sm text-center transition-all duration-200 hover:scale-[1.02]"
-                style={
-                  pkg.featured
-                    ? { background: '#d4af37', color: '#07071a', fontFamily: 'var(--font-body)' }
-                    : {
-                        background: 'transparent',
-                        border: '1px solid rgba(212,175,55,0.35)',
-                        color: '#d4af37',
-                        fontFamily: 'var(--font-body)',
-                      }
-                }
-              >
-                {pkg.cta}
-              </a>
-            </motion.div>
+            <PricingCard
+              key={pkg.name}
+              pkg={pkg}
+              index={i}
+              shouldReduce={shouldReduce}
+            />
           ))}
         </div>
 
         {/* Footer note */}
         <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="text-center mt-10 text-sm"
-          style={{ color: '#6b6b8a', fontFamily: 'var(--font-body)' }}
+          className="text-center mt-16"
+          style={{
+            fontFamily: "var(--font-body)",
+            fontSize: "16px",
+            color: "#64748b",
+            lineHeight: 1.7,
+          }}
+          initial={shouldReduce ? {} : { opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, delay: 0.3 }}
         >
-          Not sure which package?{' '}
+          Not sure which package? Book a free 15-minute call and we&apos;ll tell
+          you exactly what your business needs.
+          <br />
           <a
             href={BOOKING}
             target="_blank"
             rel="noopener noreferrer"
-            className="underline hover:text-[#d4af37] transition-colors"
-            style={{ color: '#e8e8f0' }}
+            className="hover:opacity-80 transition-opacity"
+            style={{ color: "#d4af37", textDecoration: "none" }}
           >
-            Book a free 15-minute call
-          </a>{' '}
-          and we&apos;ll tell you exactly what your business needs.
+            Book free call →
+          </a>
         </motion.p>
       </div>
     </section>

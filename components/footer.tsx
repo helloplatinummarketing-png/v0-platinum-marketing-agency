@@ -1,112 +1,242 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { Phone, Mail, MapPin } from 'lucide-react';
+import Image from "next/image";
 
-const quickLinks = ['Work', 'Services', 'Pricing', 'FAQ', 'Contact'];
+const servicesLinks = [
+  { label: "Visibility Package", href: "#pricing" },
+  { label: "Lead Machine", href: "#pricing" },
+  { label: "Reputation Builder", href: "#pricing" },
+  { label: "Full System", href: "#pricing" },
+];
+
+const companyLinks = [
+  { label: "Our Work", href: "#work" },
+  { label: "How It Works", href: "#how-it-works" },
+  { label: "FAQ", href: "#faq" },
+  { label: "Contact", href: "#contact" },
+];
+
+function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+  const isAnchor = href.startsWith("#");
+  const handleClick = (e: React.MouseEvent) => {
+    if (!isAnchor) return;
+    e.preventDefault();
+    const el = document.querySelector(href);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
+  return (
+    <a
+      href={href}
+      onClick={handleClick}
+      style={{
+        fontFamily: "var(--font-body)",
+        fontSize: "14px",
+        color: "#64748b",
+        textDecoration: "none",
+        display: "block",
+        transition: "color 0.2s ease",
+      }}
+      className="hover:text-[#d4af37]"
+    >
+      {children}
+    </a>
+  );
+}
 
 export default function Footer() {
   return (
-    <footer style={{ background: '#050514', borderTop: '1px solid #1e1e42' }}>
-      <div className="max-w-6xl mx-auto px-5 py-14">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
-          {/* Brand */}
+    <footer
+      style={{
+        background: "#010410",
+        borderTop: "1px solid rgba(212,175,55,0.08)",
+      }}
+    >
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 pt-20 pb-12">
+        {/* Four-column grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+
+          {/* Col 1 — Brand */}
           <div>
             <Image
               src="/platinum-logo.png"
               alt="Platinum Marketing Agency"
               width={120}
-              height={40}
-              style={{ height: 40, width: 'auto', marginBottom: 12 }}
+              height={36}
+              style={{ height: "36px", width: "auto", marginBottom: "16px" }}
             />
             <p
-              className="text-sm italic"
-              style={{ color: '#6b6b8a', fontFamily: 'var(--font-heading)', fontSize: '1.1rem' }}
+              style={{
+                fontFamily: "var(--font-heading)",
+                fontWeight: 300,
+                fontStyle: "italic",
+                fontSize: "20px",
+                color: "#64748b",
+                marginBottom: "8px",
+                lineHeight: 1.3,
+              }}
             >
-              &ldquo;We Build, You Work.&rdquo;
+              We Build, You Work.
+            </p>
+            <p
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "10px",
+                letterSpacing: "0.18em",
+                color: "#64748b",
+              }}
+            >
+              BRISTOL, UK
             </p>
           </div>
 
-          {/* Quick links */}
+          {/* Col 2 — Services */}
           <div>
-            <h4
-              className="text-xs font-bold uppercase tracking-widest mb-4"
-              style={{ color: '#d4af37', fontFamily: 'var(--font-body)' }}
+            <p
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "10px",
+                letterSpacing: "0.2em",
+                color: "#d4af37",
+                marginBottom: "20px",
+              }}
             >
-              Quick Links
-            </h4>
-            <ul className="space-y-2">
-              {quickLinks.map((link) => (
-                <li key={link}>
-                  <a
-                    href={`#${link.toLowerCase()}`}
-                    className="text-sm hover:text-[#d4af37] transition-colors"
-                    style={{ color: '#6b6b8a', fontFamily: 'var(--font-body)' }}
-                  >
-                    {link}
-                  </a>
-                </li>
+              SERVICES
+            </p>
+            <div className="flex flex-col gap-3">
+              {servicesLinks.map((l) => (
+                <NavLink key={l.label} href={l.href}>
+                  {l.label}
+                </NavLink>
               ))}
-            </ul>
+            </div>
           </div>
 
-          {/* Contact */}
+          {/* Col 3 — Company */}
           <div>
-            <h4
-              className="text-xs font-bold uppercase tracking-widest mb-4"
-              style={{ color: '#d4af37', fontFamily: 'var(--font-body)' }}
+            <p
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "10px",
+                letterSpacing: "0.2em",
+                color: "#d4af37",
+                marginBottom: "20px",
+              }}
             >
-              Contact
-            </h4>
-            <ul className="space-y-3">
-              <li>
-                <a
-                  href="tel:07594217753"
-                  className="flex items-center gap-2 text-sm hover:text-[#d4af37] transition-colors"
-                  style={{ color: '#6b6b8a', fontFamily: 'var(--font-body)' }}
-                >
-                  <Phone size={14} style={{ color: '#d4af37', flexShrink: 0 }} />
-                  07594 217753
-                </a>
-              </li>
-              <li>
-                <a
-                  href="mailto:helloplatinummarketing@gmail.com"
-                  className="flex items-center gap-2 text-sm hover:text-[#d4af37] transition-colors"
-                  style={{ color: '#6b6b8a', fontFamily: 'var(--font-body)' }}
-                >
-                  <Mail size={14} style={{ color: '#d4af37', flexShrink: 0 }} />
-                  helloplatinummarketing@gmail.com
-                </a>
-              </li>
-              <li className="flex items-center gap-2 text-sm" style={{ color: '#6b6b8a', fontFamily: 'var(--font-body)' }}>
-                <MapPin size={14} style={{ color: '#d4af37', flexShrink: 0 }} />
-                Bristol, UK
-              </li>
-              <li>
-                <a
-                  href="https://www.platinummarketingagency.co.uk"
-                  className="flex items-center gap-2 text-sm hover:text-[#d4af37] transition-colors"
-                  style={{ color: '#6b6b8a', fontFamily: 'var(--font-body)' }}
-                >
-                  platinummarketingagency.co.uk
-                </a>
-              </li>
-            </ul>
+              COMPANY
+            </p>
+            <div className="flex flex-col gap-3">
+              {companyLinks.map((l) => (
+                <NavLink key={l.label} href={l.href}>
+                  {l.label}
+                </NavLink>
+              ))}
+            </div>
+          </div>
+
+          {/* Col 4 — Get In Touch */}
+          <div>
+            <p
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "10px",
+                letterSpacing: "0.2em",
+                color: "#d4af37",
+                marginBottom: "20px",
+              }}
+            >
+              GET IN TOUCH
+            </p>
+            <div className="flex flex-col gap-3">
+              <a
+                href="tel:07594217753"
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "14px",
+                  color: "#64748b",
+                  textDecoration: "none",
+                  transition: "color 0.2s ease",
+                }}
+                className="hover:text-[#d4af37]"
+              >
+                07594 217753
+              </a>
+              <a
+                href="mailto:helloplatinummarketing@gmail.com"
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "14px",
+                  color: "#64748b",
+                  textDecoration: "none",
+                  transition: "color 0.2s ease",
+                  wordBreak: "break-word",
+                }}
+                className="hover:text-[#d4af37]"
+              >
+                helloplatinummarketing@gmail.com
+              </a>
+              <a
+                href="https://www.platinummarketingagency.co.uk"
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "14px",
+                  color: "#64748b",
+                  textDecoration: "none",
+                  transition: "color 0.2s ease",
+                }}
+                className="hover:text-[#d4af37]"
+              >
+                platinummarketingagency.co.uk
+              </a>
+            </div>
           </div>
         </div>
 
-        {/* Bottom bar */}
+        {/* Bottom divider */}
         <div
-          className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs"
-          style={{ borderTop: '1px solid #1e1e42', color: '#6b6b8a', fontFamily: 'var(--font-body)' }}
-        >
-          <p>© 2026 Platinum Marketing Agency. All rights reserved.</p>
-          <div className="flex items-center gap-4">
-            <a href="/privacy" className="hover:text-[#d4af37] transition-colors">Privacy Policy</a>
-            <span style={{ color: '#1e1e42' }}>·</span>
-            <a href="/terms" className="hover:text-[#d4af37] transition-colors">Terms</a>
-          </div>
+          style={{
+            height: "1px",
+            background: "rgba(212,175,55,0.06)",
+            marginBottom: "24px",
+          }}
+        />
+
+        {/* Bottom row */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <p
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "11px",
+              letterSpacing: "0.1em",
+              color: "#64748b",
+            }}
+          >
+            © 2026 Platinum Marketing Agency
+          </p>
+          <p
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "11px",
+              letterSpacing: "0.1em",
+              color: "#64748b",
+            }}
+          >
+            <a
+              href="/privacy"
+              style={{ color: "#64748b", textDecoration: "none" }}
+              className="hover:text-[#d4af37] transition-colors duration-200"
+            >
+              Privacy Policy
+            </a>
+            {" · "}
+            <a
+              href="/terms"
+              style={{ color: "#64748b", textDecoration: "none" }}
+              className="hover:text-[#d4af37] transition-colors duration-200"
+            >
+              Terms
+            </a>
+          </p>
         </div>
       </div>
     </footer>

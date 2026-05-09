@@ -1,88 +1,121 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { MapPin, Zap, Clock, Shield } from 'lucide-react';
+import { motion, useReducedMotion } from "framer-motion";
+import { MapPin, Zap, Clock, Shield } from "lucide-react";
 
-const cards = [
+const items = [
   {
-    icon: MapPin,
-    title: 'Bristol Based',
-    body: 'We\'re local. We understand Bristol trades, Bristol customers, and Bristol competition.',
+    Icon: MapPin,
+    label: "BRISTOL BASED",
+    body: "We're local. We understand your market, your competition, and your customers.",
   },
   {
-    icon: Zap,
-    title: 'Built With AI',
-    body: 'We use the latest AI tools to build faster and smarter than any traditional agency.',
+    Icon: Zap,
+    label: "AI POWERED",
+    body: "We use the latest AI tools to build faster and smarter than any agency.",
   },
   {
-    icon: Clock,
-    title: 'Live in 5 Days',
-    body: 'Not weeks or months. Your website is live and working in 5 working days.',
+    Icon: Clock,
+    label: "LIVE IN 5 DAYS",
+    body: "Not weeks. Not months. 5 working days from brief to live website.",
   },
   {
-    icon: Shield,
-    title: 'No Contracts',
-    body: 'Month to month. If we\'re not delivering results, you\'re free to walk away.',
+    Icon: Shield,
+    label: "NO CONTRACTS",
+    body: "Month to month. If we're not delivering results, you walk away. Simple.",
   },
 ];
 
 export default function WhyPlatinum() {
-  return (
-    <section className="section-pad" style={{ background: '#07071a' }}>
-      <div className="max-w-6xl mx-auto px-5">
-        {/* Heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-14"
-        >
-          <h2
-            className="text-4xl md:text-5xl font-bold"
-            style={{ fontFamily: 'var(--font-heading)', color: '#e8e8f0' }}
-          >
-            Why Bristol Trades Choose{' '}
-            <span style={{ color: '#d4af37' }}>Platinum</span>
-          </h2>
-        </motion.div>
+  const shouldReduce = useReducedMotion();
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {cards.map((card, i) => {
-            const Icon = card.icon;
+  return (
+    <section
+      id="why-platinum"
+      style={{ background: "#020617", padding: "120px 0" }}
+    >
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+        {/* Label */}
+        <motion.p
+          className="gold-label mb-6"
+          initial={shouldReduce ? {} : { opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5 }}
+        >
+          WHY US
+        </motion.p>
+
+        {/* Headline */}
+        <motion.h2
+          style={{
+            fontFamily: "var(--font-heading)",
+            fontWeight: 300,
+            fontSize: "clamp(40px, 5vw, 72px)",
+            lineHeight: 1.0,
+            color: "#f8fafc",
+            marginBottom: "80px",
+          }}
+          initial={shouldReduce ? {} : { opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, delay: 0.05 }}
+        >
+          Built Different.
+        </motion.h2>
+
+        {/* Four items — horizontal row on desktop, 2×2 tablet, stacked mobile */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
+          {items.map((item, i) => {
+            const Icon = item.Icon;
             return (
               <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 40 }}
+                key={item.label}
+                initial={shouldReduce ? {} : { opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.55, delay: i * 0.12 }}
-                className="platinum-card p-8 flex items-start gap-5"
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.55, delay: i * 0.1, ease: "easeOut" }}
+                className="relative flex flex-col gap-4 py-10 px-8"
               >
-                <div
-                  className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
+                {/* Gold vertical divider — between items only */}
+                {i > 0 && (
+                  <span
+                    className="hidden lg:block absolute left-0 top-1/2 -translate-y-1/2"
+                    style={{
+                      width: "1px",
+                      height: "80px",
+                      background: "rgba(212,175,55,0.15)",
+                    }}
+                    aria-hidden
+                  />
+                )}
+
+                {/* Icon */}
+                <Icon size={24} color="#d4af37" strokeWidth={1.5} />
+
+                {/* Label */}
+                <p
                   style={{
-                    background: 'rgba(212,175,55,0.1)',
-                    border: '1px solid rgba(212,175,55,0.25)',
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "12px",
+                    letterSpacing: "0.18em",
+                    color: "#d4af37",
                   }}
                 >
-                  <Icon size={20} style={{ color: '#d4af37' }} />
-                </div>
-                <div>
-                  <h3
-                    className="text-xl font-bold mb-2"
-                    style={{ fontFamily: 'var(--font-heading)', color: '#e8e8f0' }}
-                  >
-                    {card.title}
-                  </h3>
-                  <p
-                    className="text-sm leading-relaxed"
-                    style={{ color: '#6b6b8a', fontFamily: 'var(--font-body)' }}
-                  >
-                    {card.body}
-                  </p>
-                </div>
+                  {item.label}
+                </p>
+
+                {/* Body */}
+                <p
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: "15px",
+                    color: "#64748b",
+                    lineHeight: 1.7,
+                  }}
+                >
+                  {item.body}
+                </p>
               </motion.div>
             );
           })}
